@@ -1,0 +1,80 @@
+.createDateRangePicker.ant-calendar-picker-input.ant-input:hover {
+    border-color: #be1e1ee5 !important;
+    outline: 0 !important;
+    -webkit-box-shadow: 0 0 0 2px rgba(49, 139, 54, 0.342) !important;
+    box-shadow: 0 0 0 2px rgba(49, 139, 54, 0.342) !important;
+  }
+  
+  .createDateRangePicker:hover {
+    border-color: #be1e1ee5 !important;
+  }
+  
+  .createDateRangePicker.ant-picker-focused {
+    border-color: #be1e1ee5 !important;
+    outline: 0 !important;
+    -webkit-box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+    box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+  }
+  
+  .createDateRangePicker .ant-picker-active-bar {
+    background-color: #952222e5 !important;
+  }
+
+  .createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-range-start
+  .ant-picker-cell-inner {
+  background-color: #be1e1ee5 !important;
+}
+
+.createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-range-end
+  .ant-picker-cell-inner {
+  background-color: #be1e1ee5 !important;
+}
+
+.createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-today
+  .ant-picker-cell-inner::before {
+  border-color: #952222e5 !important;
+}
+
+.createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before,
+.createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-in-range::before,
+.createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before,
+.createDateRangePicker
+  .ant-picker-time-panel-column
+  > li.ant-picker-time-panel-cell-selected
+  .ant-picker-time-panel-cell-inner {
+  background: #f9d6d6 !important;
+}
+
+.createDateRangePicker .ant-btn-primary {
+  background-color: #952222e5 !important;
+  border-color: #952222e5 !important;
+}
+
+.createDateRangePicker .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner{
+  background-color: #be1e1ee5 !important;
+}
+
+.createDateRangePicker .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner  {
+  background-color: #be1e1ee5 !important;
+}
+
+
+.createDateRangePicker
+  .ant-picker-cell-in-view.ant-picker-cell-selected
+  .ant-picker-cell-inner::before {
+  border-color: #952222e5 !important;
+}
+
+.createDateRangePicker .ant-picker-cell-in-view.ant-picker-cell-today:not(.ant-picker-cell-selected) .ant-picker-cell-inner{
+  background: white !important;
+}
+
+.createDateRangePicker .ant-picker-cell-in-view.ant-picker-cell-today:not(.ant-picker-cell-selected) .ant-picker-cell-inner::before{
+  border-color: #952222e5 !important;
+}

@@ -1,0 +1,67 @@
+.select-custom.ant-select-single.ant-select-show-arrow:hover .ant-select-selector {
+    border-color: #be1e1ee5 !important;
+}
+.select-custom .ant-select-item-option-active{
+    background-color: #ffefef !important;
+}
+.select-custom .ant-select-item-option-active.ant-select-item-option-selected{
+    background-color: #f7d9d9 !important;
+}
+.select-custom .ant-select-item-option.ant-select-item-option-selected{
+    background-color: #f7d9d9 !important;
+}
+.select-custom.ant-select-focused .ant-select-selector{
+    // border-color:  !important;
+    border-color: #be1e1ee5 !important;
+    outline: 0 !important;
+    -webkit-box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+    box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+}
+.select-custom .ant-select-open .ant-select-selector{
+    // border-color:  !important;
+    border-color: #be1e1ee5 !important;
+    outline: 0 !important;
+    -webkit-box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+    box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+}
+
+
+.select-custom-modal.ant-select-single.ant-select-show-arrow:hover .ant-select-selector {
+    border-color: #be1e1ee5 !important;
+}
+.select-custom-modal .ant-select-item-option-active{
+    background-color: #ffefef !important;
+}
+.select-custom-modal .ant-select-item-option-active.ant-select-item-option-selected{
+    background-color: #f7d9d9 !important;
+}
+.select-custom-modal .ant-select-item-option.ant-select-item-option-selected{
+    background-color: #f7d9d9 !important;
+}
+.select-custom-modal.ant-select-focused .ant-select-selector{
+    // border-color:  !important;
+    border-color: #be1e1ee5 !important;
+    outline: 0 !important;
+    -webkit-box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+    box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+}
+.select-custom-modal .ant-select-open .ant-select-selector{
+    // border-color:  !important;
+    border-color: #be1e1ee5 !important;
+    outline: 0 !important;
+    -webkit-box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+    box-shadow: 0 0 0 2px rgba(203, 78, 101, 0.342) !important;
+}
+.custom-modal-space{
+    width: 100% !important;
+    .ant-space-item{
+        width: 100% !important;
+    }
+}
+.custom-space-choose .ant-space-item {
+    width: 100% !important;
+}
+
+// .createSelect .ant-select-item-option-active .ant-select-item-option-content{
+//     background-color: #f7d9d9 !important;
+// }

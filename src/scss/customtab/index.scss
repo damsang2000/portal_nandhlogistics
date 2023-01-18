@@ -1,0 +1,17 @@
+.ant-tabs-card > 
+.ant-tabs-nav .ant-tabs-tab-active,
+.ant-tabs-card > div >
+.ant-tabs-nav .ant-tabs-tab-active{
+    background: #db4040;
+    color: white;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: white !important;
+}
+.ant-tabs-tab-btn:hover{
+    color: #db4040;
+}
+.ant-tabs-tab:hover .ant-tabs-tab-btn{
+    color: #db4040;
+}
