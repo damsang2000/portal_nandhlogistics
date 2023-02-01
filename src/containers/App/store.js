@@ -9,13 +9,10 @@ import {
   authReducer,
   roundBordersReducer,
   blocksShadowsReducer,
-  pokemonReducer,
   cryptoTrendsReducer,
   globalQuotesReducer,
   quotesBySymbolReducer,
   topTenReducer,
-  cryptoHistoryReducer,
-  walletReducer,
   ChuHangReducer,
   ChuHangNameReducer,
   loadingReducer,
@@ -25,8 +22,6 @@ import {
   arrCostReducer,
 } from '@/redux/reducers/index';
 import appConfigReducer from '@/redux/reducers/appConfigReducer';
-import covidReducer from '../Maps/VectorMapWithRequestData/redux/covidReducer';
-import todoReducer from '../Todo/redux/reducer';
 
 const reducer = combineReducers({
   theme: themeReducer,
@@ -38,15 +33,10 @@ const reducer = combineReducers({
   newOrder: newOrderTableReducer,
   sidebar: sidebarReducer,
   user: authReducer,
-  covid: covidReducer,
-  todo: todoReducer,
-  pokemon: pokemonReducer,
   cryptoTrends: cryptoTrendsReducer,
   globalQuotes: globalQuotesReducer,
   quotesBySymbol: quotesBySymbolReducer,
   topTen: topTenReducer,
-  cryptoHistory: cryptoHistoryReducer,
-  wallet: walletReducer,
   idchuhang: ChuHangReducer,
   namechuhang: ChuHangNameReducer,
   loading: loadingReducer,

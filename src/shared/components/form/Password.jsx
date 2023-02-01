@@ -7,11 +7,7 @@ import { FormFieldButton } from '@/shared/components/form/FormElements';
 import { colorAdditional, colorFieldsBorder } from '@/utils/palette';
 import FormField from './FormField';
 
-const PasswordField = React.forwardRef(({
-  input,
-  keyIcon,
-  ...props
-}, ref) => {
+const PasswordField = React.forwardRef(({ input, keyIcon, ...props }, ref) => {
   const [passwordShown, setPasswordShown] = useState(false);
   return (
     <>
@@ -29,7 +25,7 @@ const PasswordField = React.forwardRef(({
       <FormFieldButton
         active={passwordShown}
         type="button"
-        onClick={() => setPasswordShown(shown => !shown)}
+        onClick={() => setPasswordShown((shown) => !shown)}
       >
         <EyeIcon />
       </FormFieldButton>

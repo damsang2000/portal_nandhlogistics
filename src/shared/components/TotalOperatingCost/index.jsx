@@ -25,6 +25,7 @@ const index = (props) => {
   // ? state extension
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const arrCost = useSelector((state) => state.arrCost);
   const { Title } = Typography;
   const dispatch = useDispatch();
   const format = 'MM/YYYY';
@@ -68,6 +69,7 @@ const index = (props) => {
 
         const response = await ThongKeApi.getAllChiPhiVanHanh(data);
         setdatatotal(response);
+        console.log(response);
         dispatch(
           changeDataArrCost({
             arrCost: [
@@ -121,6 +123,7 @@ const index = (props) => {
       }
     };
     fetchCategoryProduct();
+
     return () => {
       setdatatotal('');
       setDataStogareProduct([]);
@@ -163,7 +166,10 @@ const index = (props) => {
             picker="month"
             format={'MM/YYYY'}
             defaultValue={dayjs(monthCurrent, format)}
-            onChange={(value, dateString) => setDate(dateString)}
+            onChange={(value, dateString) => {
+              setDate(dateString);
+              localStorage.setItem('CostMonth', dateString);
+            }}
           />
           <CurrencyFormat
             value={Number(
@@ -178,7 +184,10 @@ const index = (props) => {
             )}
           />
           <ExportExcel
-            filename={`Tong_chi_phi_van_hanh_${parseInt(date.split('/')[0], 10)}-${parseInt(date.split('/')[1], 10)}`}
+            filename={`Tong_chi_phi_van_hanh_${parseInt(
+              date.split('/')[0],
+              10
+            )}-${parseInt(date.split('/')[1], 10)}`}
             date={date}
           />
         </Title>
@@ -200,30 +209,48 @@ const index = (props) => {
             data={dataStogareProduct}
           />
           <ShareCost
-            total={datatotal.phiXuLyHangHoa_ThanhTien}
-            title="Phí xử lý hàng hóa"
+            total={
+              datatotal.phiXuLyHangHoa_ThanhTien +
+              datatotal.phiSoanDongGoi_ThanhTien +
+              datatotal.phiXuLyDC_ThanhTien
+            }
+            title="Phí dịch vụ giá trị gia tăng"
+            isTab
             data={handleProduct}
+            dataHanlePack={packProduct}
+            dataHanleDC={handleDC}
+            totalHanle={datatotal.phiXuLyHangHoa_ThanhTien}
+            totalPack={datatotal.phiSoanDongGoi_ThanhTien}
+            totalDC={datatotal.phiXuLyDC_ThanhTien}
           />
           <ShareCost
             total={datatotal.phiBocXep_ThanhTien}
             title="Phí bốc xếp hàng hóa"
             data={unLoadingProduct}
           />
-          <ShareCost
-            total={datatotal.phiSoanDongGoi_ThanhTien}
+          {/* <ShareCost
+            total={
+              arrCost
+                ? parseInt(arrCost.arrCost[3], 10)
+                : datatotal.phiSoanDongGoi_ThanhTien
+            }
             title="Phí soạn hàng và đóng gói"
             data={packProduct}
-          />
+          /> */}
           <ShareCost
             total={datatotal.phiVatTuBaoBi_ThanhTien}
             title="Phí vật tư bao bì"
             data={incurredProduct}
           />
-          <ShareCost
-            total={datatotal.phiXuLyDC_ThanhTien}
+          {/* <ShareCost
+            total={
+              arrCost
+                ? parseInt(arrCost.arrCost[5], 10)
+                : datatotal.phiXuLyDC_ThanhTien
+            }
             title="Phí xử lý DC"
             data={handleDC}
-          />
+          /> */}
           <ShareCost
             total={datatotal.phiXuLyHangHoan_ThanhTien}
             title="Phí xử lý hàng hoàn"

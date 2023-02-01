@@ -222,7 +222,9 @@ const CurrentInventory = () => {
   return (
     <>
       <Space>
-        <CustomTitleAndColor level={2}>Tồn hiện tại</CustomTitleAndColor>
+        <CustomTitleAndColor level={2}>
+          Tồn hiện tại theo phiếu nhập
+        </CustomTitleAndColor>
       </Space>
       <CustomLoading loading={loading.loading} />
       <Table

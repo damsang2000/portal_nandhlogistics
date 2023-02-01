@@ -54,7 +54,6 @@ const ModalDO = (props) => {
   const [NhaCC, setNhaCC] = useState('');
   const [MaSieuThi, setMaSieuThi] = useState('');
   const dispatch = useDispatch();
-  console.log(NhaCC, MaSieuThi);
 
   // ? handle function state component
   // * function close modal

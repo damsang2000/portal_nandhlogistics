@@ -7,7 +7,7 @@ import { CustomSpan } from '../../../../shared/components/CustomSpan';
 const handleChange = (value) => {
   console.log(`selected ${value}`);
 };
-const TopbarKho = () => {
+const TopbarKho = ({ refCurrent }) => {
   const { Option } = Select;
   return (
     <Space>

@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 
-const {
-  shape, string, bool,
-} = PropTypes;
+const { shape, string, bool } = PropTypes;
 
 export const CustomizerProps = shape({
   topNavigation: bool,

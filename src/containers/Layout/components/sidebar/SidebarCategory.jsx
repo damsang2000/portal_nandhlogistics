@@ -3,14 +3,27 @@ import PropTypes from 'prop-types';
 import { Collapse } from 'react-bootstrap';
 import styled from 'styled-components';
 import {
- colorHover, colorBackground, colorRed, colorGray, colorRedHover5,
+  colorHover,
+  colorBackground,
+  colorRed,
+  colorGray,
+  colorRedHover5,
 } from '@/utils/palette';
 import { left, paddingLeft, marginLeft } from '@/utils/directions';
-import { SidebarNavLink, SidebarLinkTitle, SidebarLinkIcon } from './SidebarLink';
-
+import {
+  SidebarNavLink,
+  SidebarLinkTitle,
+  SidebarLinkIcon,
+} from './SidebarLink';
 
 const SidebarCategory = ({
-  title, icon, isNew, children, collapse,
+  title,
+  icon,
+  isNew,
+  children,
+  collapse,
+  iconNew,
+  name,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,9 +32,14 @@ const SidebarCategory = ({
       <SidebarCategoryButton
         as="button"
         type="button"
-        onClick={() => setIsOpen(prev => !prev)}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={name}
       >
-        {icon ? <SidebarLinkIcon className={`lnr lnr-${icon}`} /> : ''}
+        {icon ? (
+          <SidebarLinkIcon className={`lnr lnr-${icon}`} />
+        ) : (
+          <SidebarLinkIcon>{iconNew}</SidebarLinkIcon>
+        )}
         <SidebarLinkTitle>
           {title}
           {isNew && <SidebarCategoryNew />}
@@ -35,9 +53,7 @@ const SidebarCategory = ({
       </SidebarCategoryButton>
       <Collapse in={collapse || isOpen}>
         <SidebarSubmenuWrap>
-          <SidebarSubmenu>
-            {children}
-          </SidebarSubmenu>
+          <SidebarSubmenu>{children}</SidebarSubmenu>
         </SidebarSubmenuWrap>
       </Collapse>
     </SidebarCategoryWrap>
@@ -67,7 +83,9 @@ const SidebarCategoryButton = styled(SidebarNavLink)`
 
 export const SidebarCategoryChevron = styled.span`
   ${marginLeft}: auto;
-  ${props => props.open && `
+  ${(props) =>
+    props.open &&
+    `
     transform: rotate(90deg);
   `};
   font-size: 10px;
@@ -76,9 +94,10 @@ export const SidebarCategoryChevron = styled.span`
 `;
 
 const SidebarSubmenuWrap = styled.div`
-  
   @media screen and (min-width: 576px) {
-    ${props => props.collapse && `
+    ${(props) =>
+      props.collapse &&
+      `
       position: absolute;
       width: 0;
       transition: 0.3s;
@@ -123,9 +142,11 @@ const SidebarSubmenu = styled.ul`
       background-color: ${colorBackground};
     }
   }
-  
+
   @media screen and (min-width: 576px) {
-    ${props => props.collapse && `
+    ${(props) =>
+      props.collapse &&
+      `
         padding: 0 0 15px 0;
         transition: 0s;
     `}
@@ -133,8 +154,9 @@ const SidebarSubmenu = styled.ul`
 `;
 
 const SidebarCategoryWrap = styled.li`
-  
-  ${props => props.collapse && `
+  ${(props) =>
+    props.collapse &&
+    `
   
     &:hover {
       
@@ -147,10 +169,11 @@ const SidebarCategoryWrap = styled.li`
       }
     }
   `};
-  
+
   @media screen and (min-width: 576px) {
-    
-    ${props => props.collapse && `
+    ${(props) =>
+      props.collapse &&
+      `
       & > div {
         position: absolute;
         width: 0;

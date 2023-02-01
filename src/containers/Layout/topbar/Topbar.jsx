@@ -21,7 +21,11 @@ import {
 import TopbarMetaMask from '../components/topbar/TopbarMetaMask';
 import logo from '../../../asset/img/login/NHLlogo.png';
 
-const Topbar = ({ changeMobileSidebarVisibility, changeSidebarVisibility }) => {
+const Topbar = ({
+  changeMobileSidebarVisibility,
+  changeSidebarVisibility,
+  refCurrent,
+}) => {
   const wallet = useSelector((state) => state.wallet);
   const history = useHistory();
   const changeDashboard = () => {
@@ -40,10 +44,10 @@ const Topbar = ({ changeMobileSidebarVisibility, changeSidebarVisibility }) => {
           onClickDesktop={changeSidebarVisibility}
         />
       </TopbarLeft>
-      <TopbarRight>
-        <TopbarSearchWrap className="topbar_custom_wrap">
+      <TopbarRight className="first-step">
+        <TopbarSearchWrap className="topbar_custom_wrap ">
           <TopbarChuhang className="topbar_chuhang" />
-          <TopbarKho />
+          <TopbarKho className="first-step2" />
           {/* <TopbarSearch /> */}
         </TopbarSearchWrap>
         <TopbarRightOver>

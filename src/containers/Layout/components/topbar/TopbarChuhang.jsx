@@ -14,8 +14,9 @@ import { getIDFirst } from '../../../../redux/actions/getIDFirstAction';
 import ModalChuHang from '../../../../shared/components/ModalChuHang';
 import ChuHangApi from '../../../../api/ChuHangApi';
 import { CustomSpan } from '../../../../shared/components/CustomSpan';
+import { changeDataArrCost } from '../../../../redux/actions/arrCostActions';
 
-const App = () => {
+const App = ({ refCurrent }) => {
   const { Option } = Select;
   const [filterChuHang, setFilterChuHang] = useState([]);
   const idfirst = useSelector((state) => state.idfirst);
@@ -71,6 +72,7 @@ const App = () => {
     cookies.set('owner_code', key.key, { path: '/' });
     localStorage.setItem('owner_code', key.key);
     dispatch(Changeloading({ loading: true }));
+    dispatch(changeDataArrCost({ arrCost: [] }));
   };
 
   useEffect(() => {
@@ -138,6 +140,7 @@ const App = () => {
         <Select
           showSearch
           popupClassName="select-custom"
+          ref={refCurrent}
           // eslint-disable-next-line no-mixed-operators
           value={
             (filterChuHang.length !== 0 &&

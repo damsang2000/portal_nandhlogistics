@@ -22,6 +22,7 @@ import { useDebounce } from '../../../hook';
 import TableInventoryDetail from './modal/TableInventoryDetail';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
 import { IconCustom } from '../../../shared/components/IconCustom';
+import ExportExcel from '../../../shared/components/account/ExportExcel';
 
 // import CustomLoading from '../../../../shared/components/CustomLoading';
 // import InputColumns from '../../../../shared/components/InputColumns';
@@ -91,21 +92,16 @@ const TableInventory = () => {
   const searchFilter = () => {
     setIsDateChange(!isDateChange);
   };
-
-  //   // ! function get value record column
-  //   const getValueColumn = (record) => {
-  //     setDataDetail(record);
-  //   };
-  const items = [
-    {
-      label: 'In Phiếu',
-      key: '1',
-      icon: <PlusCircleOutlined />,
-    },
-  ];
-  const menuProps = {
-    items,
-  };
+  // const items = [
+  //   {
+  //     label: <ExportExcel />,
+  //     key: '1',
+  //     icon: <PlusCircleOutlined />,
+  //   },
+  // ];
+  // const menuProps = {
+  //   items,
+  // };
   // * Call API =================================================================
   useEffect(() => {
     handleChangeLoading(true);
@@ -166,14 +162,7 @@ const TableInventory = () => {
       title: 'Thao tác',
       width: 100,
       // eslint-disable-next-line react/button-has-type
-      render: (text) => (
-        <Dropdown
-          placement="bottomLeft"
-          menu={menuProps}
-        >
-          <IconCustom />
-        </Dropdown>
-      ),
+      render: (value, record) => <ExportExcel idInventory={record.auto_ID} />,
     },
     {
       title: 'ID',

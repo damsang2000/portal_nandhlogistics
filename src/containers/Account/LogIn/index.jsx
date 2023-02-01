@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import withAuthFirebase from '@/shared/components/account/auth/withAuthFirebase';
 import LogInForm from '@/shared/components/account/loginForm/LogInForm';
 import showResults from '@/utils/showResults';
 
@@ -41,4 +40,4 @@ LogIn.propTypes = {
   changeIsOpenModalFireBase: PropTypes.func.isRequired,
 };
 
-export default withAuthFirebase(LogIn);
+export default LogIn;

@@ -4,12 +4,13 @@ import App from '@/containers/App/App';
 import * as serviceWorker from './serviceWorker';
 import './scss/index.scss';
 
+import { steps } from './steps';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

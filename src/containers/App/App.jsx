@@ -11,7 +11,6 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from '@material-ui/core/styles';
 import { LoadScript } from '@react-google-maps/api';
-import initAuth0 from '@/shared/components/account/auth/withAuth0';
 import TimepickerStyles from '@/shared/components/form/date-pickers/timepickerStyles';
 import Loading from '@/shared/components/Loading';
 import Router from './Router';
@@ -67,9 +66,9 @@ ThemeComponent.propTypes = {
 const ConnectedThemeComponent = ThemeComponent;
 
 const App = () => {
-  useEffect(() => {
-    window.addEventListener('load', initAuth0);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('load', initAuth0);
+  // }, []);
 
   return (
     <Provider store={store}>

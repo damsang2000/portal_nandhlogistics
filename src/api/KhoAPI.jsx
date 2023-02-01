@@ -13,6 +13,10 @@ const KhoApi = {
     const url = '/XuatNhapKhau/GetListKiemKhoChiTietById';
     return axiosPrivate.post(url, data);
   },
+  exportExcel: (data) => {
+    const url = '/WarehouseReport/ExportPhieuKiemKho';
+    return axiosPrivate.post(url, data);
+  },
 };
 
 export default KhoApi;

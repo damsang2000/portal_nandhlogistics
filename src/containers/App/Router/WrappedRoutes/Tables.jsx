@@ -21,6 +21,7 @@ import TableManageVoucher from '../../../Tables/TableDO/TableManageVoucher';
 import TikiOrder from '../../../Tables/Tiki';
 import ManageASN from '../../../Tables/AntdTable/components/ManageASN';
 import TableInventory from '../../../Tables/inventory/TableInventory';
+import CurrentInventorySell from '../../../Tables/CurrentInventory/CurrentInventorySell';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
@@ -96,6 +97,10 @@ export default () => (
     <Route
       path="/nh/currentinventory"
       component={CurrentInventory}
+    />
+    <Route
+      path="/nh/currentinventorysell"
+      component={CurrentInventorySell}
     />
     <Route
       path="/nh/sln"

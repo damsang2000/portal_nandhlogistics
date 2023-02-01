@@ -1,34 +1,213 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import {
+  CiGrid42,
+  CiViewTimeline,
+  CiShoppingBasket,
+  CiMap,
+  CiShop,
+  CiReceipt,
+  CiSaveDown1,
+  CiSaveUp1,
+  CiStickyNote,
+  CiMemoPad,
+  CiVault,
+  CiViewTable,
+  CiSquareMore,
+} from 'react-icons/ci';
+import { Button, Tour } from 'antd';
 import { colorBorder, colorBackground, colorHover } from '@/utils/palette';
 import { left } from '@/utils/directions';
 import SidebarLink, { SidebarNavLink, SidebarLinkTitle } from './SidebarLink';
 import SidebarCategory from './SidebarCategory';
+import SidebarLink2 from './SidebarLink2';
 
-const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
-  <SidebarContentWrap collapse={collapse}>
-    <SidebarBlock collapse={collapse}>
-      <SidebarLink
-        title="Dashboard"
-        icon="home"
-        route="/dashboard"
-        onClick={onClick}
-      />
-    </SidebarBlock>
-    <SidebarBlock collapse={collapse}>
-      <SidebarCategory
-        title="Danh Mục"
-        icon="layers"
-        collapse={collapse}
-      >
-        <SidebarLink
-          title="Danh Mục SKU"
-          route="/nh/data_table"
-          onClick={onClick}
-        />
-      </SidebarCategory>
-      <SidebarCategory
+const SidebarContent = ({
+  onClick,
+  changeToLight,
+  changeToDark,
+  collapse,
+  onClickTour,
+  ref1,
+}) => {
+  return (
+    <>
+      <SidebarContentWrap collapse={collapse}>
+        <SidebarBlock collapse={collapse}>
+          <SidebarCategory
+            title="Tổng quan"
+            iconNew={<CiGrid42 />}
+            collapse={collapse}
+            name="dashboard"
+          >
+            <SidebarLink
+              title="Tổng quan"
+              icon="home"
+              route="/dashboard"
+              onClick={onClick}
+            />
+            <SidebarCategory
+              title="Báo cáo"
+              iconNew={<CiReceipt />}
+              collapse={collapse}
+            >
+              <SidebarCategory
+                title="Nhập Hàng"
+                iconNew={<CiSaveDown1 />}
+                collapse={collapse}
+              >
+                <SidebarLink
+                  title="Kế hoạch nhập(ASN)"
+                  route="/nh/asn"
+                  onClick={onClick}
+                />
+                <SidebarLink
+                  title="Quản lý nhập kho"
+                  route="/nh/manage_asn"
+                  onClick={onClick}
+                />
+              </SidebarCategory>
+              <SidebarCategory
+                title="Xuất Hàng"
+                iconNew={<CiSaveUp1 />}
+                collapse={collapse}
+              >
+                <SidebarLink
+                  title="Kế hoạch xuất kho"
+                  route="/nh/do"
+                  onClick={onClick}
+                />
+                <SidebarLink
+                  title="Quản lý phiếu xuất"
+                  route="/nh/manage_do"
+                  onClick={onClick}
+                />
+              </SidebarCategory>
+              <SidebarCategory
+                title="Quản lý kho"
+                iconNew={<CiVault />}
+                collapse={collapse}
+              >
+                <SidebarLink
+                  title="Kiểm kho"
+                  route="/nh/mana_inventory"
+                  onClick={onClick}
+                />
+              </SidebarCategory>
+              <SidebarCategory
+                title="Chi tiết, lịch sử"
+                iconNew={<CiStickyNote />}
+                collapse={collapse}
+              >
+                <SidebarLink
+                  title="Chi Tiết Hàng Nhập"
+                  route="/nh/asndetail"
+                  onClick={onClick}
+                />
+                <SidebarLink
+                  title="Chi Tiết Hàng Xuất"
+                  route="/nh/dodetail"
+                  onClick={onClick}
+                />
+                <SidebarLink
+                  title="Lịch sử điều chỉnh tồn"
+                  route="/nh/regulatoryhistory"
+                  onClick={onClick}
+                />
+                {/* <SidebarLink title="Chi tiết khác" route="/nh/api_table" onClick={onClick} /> */}
+              </SidebarCategory>
+            </SidebarCategory>
+            <SidebarCategory
+              title="Báo cáo vận hành"
+              iconNew={<CiMemoPad />}
+              collapse={collapse}
+            >
+              <SidebarCategory
+                title="Vận Hành"
+                icon="book"
+                collapse={collapse}
+              >
+                <SidebarLink
+                  title="Nhập Kho"
+                  route="/nh/systemasn"
+                  onClick={onClick}
+                />
+                <SidebarLink
+                  title="Xuất Kho"
+                  route="/nh/systemdo"
+                  onClick={onClick}
+                />
+                <SidebarLink
+                  title="Tình hình nhập xuất trong ngày"
+                  route="/nh/importexport"
+                  onClick={onClick}
+                />
+                {/* <SidebarLink title="Handing" route="/nh/systemdo" onClick={onClick} />
+        <SidebarLink title="Theo dõi tình trạng xuất hàng" route="/nh/systemdo" onClick={onClick} /> */}
+                {/* <SidebarLink title="Vận hành khác" route="/nh/systemdo" onClick={onClick} /> */}
+              </SidebarCategory>
+              {/* <SidebarCategory
+            title="Tồn kho"
+            iconNew={<CiSquareMore />}
+            collapse={collapse}
+          >
+            <SidebarLink
+              title="Xuất nhập tồn"
+              route="/nh/agingreport"
+              onClick={onClick}
+            />
+            <SidebarLink
+              title="Tồn hiện tại"
+              route="/nh/currentinventory"
+              onClick={onClick}
+            />
+          </SidebarCategory> */}
+            </SidebarCategory>
+          </SidebarCategory>
+        </SidebarBlock>
+        <SidebarBlock collapse={collapse}>
+          <SidebarCategory
+            title="Kho sản phẩm"
+            iconNew={<CiViewTimeline />}
+            collapse={collapse}
+            name="ProductInventory"
+          >
+            <SidebarCategory
+              title="Danh Mục"
+              iconNew={<CiViewTable />}
+              collapse={collapse}
+            >
+              <SidebarLink
+                title="Danh Mục SKU"
+                route="/nh/data_table"
+                onClick={onClick}
+              />
+            </SidebarCategory>
+            <SidebarCategory
+              title="Tồn kho"
+              iconNew={<CiSquareMore />}
+              collapse={collapse}
+            >
+              <SidebarLink
+                title="Xuất nhập tồn"
+                route="/nh/agingreport"
+                onClick={onClick}
+              />
+              <SidebarLink
+                title="Tồn hiện tại theo phiếu nhập"
+                route="/nh/currentinventory"
+                onClick={onClick}
+              />
+              <SidebarLink
+                title="Tồn hiện tại"
+                route="/nh/currentinventorysell"
+                onClick={onClick}
+              />
+            </SidebarCategory>
+          </SidebarCategory>
+
+          {/* <SidebarCategory
         title="Nhập Hàng"
         icon="arrow-down-circle"
         collapse={collapse}
@@ -70,11 +249,11 @@ const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
           route="/nh/mana_inventory"
           onClick={onClick}
         />
-      </SidebarCategory>
-    </SidebarBlock>
+      </SidebarCategory> */}
+        </SidebarBlock>
 
-    <SidebarBlock collapse={collapse}>
-      <SidebarCategory
+        <SidebarBlock collapse={collapse}>
+          {/* <SidebarCategory
         title="Chi tiết, lịch sử"
         icon="file-empty"
         collapse={collapse}
@@ -94,7 +273,6 @@ const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
           route="/nh/regulatoryhistory"
           onClick={onClick}
         />
-        {/* <SidebarLink title="Chi tiết khác" route="/nh/api_table" onClick={onClick} /> */}
       </SidebarCategory>
       <SidebarCategory
         title="Vận Hành"
@@ -116,9 +294,6 @@ const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
           route="/nh/importexport"
           onClick={onClick}
         />
-        {/* <SidebarLink title="Handing" route="/nh/systemdo" onClick={onClick} />
-        <SidebarLink title="Theo dõi tình trạng xuất hàng" route="/nh/systemdo" onClick={onClick} /> */}
-        {/* <SidebarLink title="Vận hành khác" route="/nh/systemdo" onClick={onClick} /> */}
       </SidebarCategory>
       <SidebarCategory
         title="Tồn kho"
@@ -151,21 +326,43 @@ const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
           route="/nh/slx"
           onClick={onClick}
         />
-      </SidebarCategory>
-      {/* <SidebarCategory
-        title="Cấu hình"
-        icon="pie-chart"
-        collapse={collapse}
-      >
-        <SidebarLink
-          title="Tiki"
-          route="/nh/config_tiki"
-          onClick={onClick}
-        />
       </SidebarCategory> */}
-    </SidebarBlock>
+          {/* <SidebarCategory
+            title="Sản phẩm đang bán"
+            iconNew={<CiShoppingBasket />}
+            collapse={collapse}
+            name="sellProduct"
+          > */}
+          <SidebarLink
+            title="Sản phẩm đang bán"
+            route="/nh/config_tiki"
+            onClick={onClick}
+            iconNew={<CiShoppingBasket />}
+            name="sellProduct"
+          />
+          {/* </SidebarCategory> */}
 
-    {/* <SidebarBlock collapse={collapse}>
+          <SidebarLink2
+            title="Hướng dẫn sử dụng"
+            onClick={onClickTour}
+            iconNew={<CiMap />}
+          />
+
+          <SidebarCategory
+            title="Kết nối shop"
+            iconNew={<CiShop />}
+            collapse={collapse}
+            name="connectShop"
+          >
+            <SidebarLink
+              title="Tiki"
+              route="/nh/config_tiki"
+              onClick={onClick}
+            />
+          </SidebarCategory>
+        </SidebarBlock>
+
+        {/* <SidebarBlock collapse={collapse}>
       <SidebarCategory title="Tài khoản" icon="user" collapse={collapse}>
         <SidebarLink title="Thông Tin Thành Viên" route="/tables/material_table" onClick={onClick} />
         <SidebarLink title="Đổi Mật Khẩu" route="/tables/editable_table" onClick={onClick} />
@@ -174,7 +371,7 @@ const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
       </SidebarCategory>
     </SidebarBlock> */}
 
-    {/* <SidebarBlock collapse={collapse}>
+        {/* <SidebarBlock collapse={collapse}>
       <SidebarCategory title="UI Elements" icon="diamond" collapse={collapse}>
         <SidebarLink title="Alerts" route="/ui/alerts" onClick={onClick} />
         <SidebarLink title="Buttons" route="/ui/buttons" onClick={onClick} />
@@ -307,8 +504,12 @@ const SidebarContent = ({ onClick, changeToLight, changeToDark, collapse }) => (
         onClick={onClick}
       />
     </SidebarBlock> */}
-  </SidebarContentWrap>
-);
+      </SidebarContentWrap>
+
+      {/* <Button ref={ref1}>Tổng quan</Button> */}
+    </>
+  );
+};
 
 SidebarContent.propTypes = {
   changeToDark: PropTypes.func.isRequired,

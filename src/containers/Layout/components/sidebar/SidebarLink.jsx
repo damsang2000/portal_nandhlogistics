@@ -15,29 +15,37 @@ import {
   colorRed,
   colorGray,
 } from '@/utils/palette';
-import { 
-  left,
-  marginLeft,
-  marginRight,
-} from '@/utils/directions';
+import { left, marginLeft, marginRight } from '@/utils/directions';
 
 const SidebarLink = ({
-  title, icon, newLink, route, onClick,
+  title,
+  icon,
+  newLink,
+  route,
+  onClick,
+  iconNew,
+  name,
 }) => (
-  <li>
+  <li className={name}>
     <SidebarNavLink
       to={route}
       onClick={onClick}
       activeClassName="active"
     >
-      {icon ? <SidebarLinkIcon className={`lnr lnr-${icon}`} /> : ''}
-      <SidebarLinkTitle>
+      {icon ? (
+        <SidebarLinkIcon className={`lnr lnr-${icon}`} />
+      ) : (
+        <SidebarLinkIcon>{iconNew}</SidebarLinkIcon>
+      )}
+      <SidebarLinkTitle className="third-step">
         {title}
         {newLink ? (
           <NewBadge bg="custom">
             <span>New</span>
           </NewBadge>
-        ) : ''}
+        ) : (
+          ''
+        )}
       </SidebarLinkTitle>
     </SidebarNavLink>
   </li>
@@ -79,12 +87,12 @@ export const SidebarNavLink = styled(NavLink)`
 
   &.active {
     color: ${colorRed};
-    font-weight:bold;
-    &:hover{
+    font-weight: bold;
+    &:hover {
       color: ${colorRed};
       &:before {
-      opacity: 1;
-    }
+        opacity: 1;
+      }
     }
     &:before {
       opacity: 1;
@@ -92,7 +100,7 @@ export const SidebarNavLink = styled(NavLink)`
   }
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     height: 100%;
@@ -158,7 +166,7 @@ export const SidebarLinkTitle = styled.span`
 export const SidebarLinkIcon = styled.span`
   font-size: 19px;
   line-height: 20px;
-  color:  ${colorRed};
+  color: ${colorRed};
   ${marginRight}: 10px;
 `;
 

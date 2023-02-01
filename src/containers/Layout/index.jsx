@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Tour from 'reactour';
 import styled from 'styled-components';
 import { paddingLeft } from '@/utils/directions';
-import { changeMobileSidebarVisibility, changeSidebarVisibility } from '@/redux/actions/sidebarActions';
 import {
-  changeThemeToDark, changeThemeToLight,
+  changeMobileSidebarVisibility,
+  changeSidebarVisibility,
+} from '@/redux/actions/sidebarActions';
+import {
+  changeThemeToDark,
+  changeThemeToLight,
 } from '@/redux/actions/themeActions';
 import Topbar from './topbar/Topbar';
 import TopbarWithNavigation from './topbar_with_navigation/TopbarWithNavigation';
 import Sidebar from './components/sidebar/Sidebar';
 import Customizer from './customizer/Customizer';
+import { steps } from '../../steps';
 // import WelcomeNotification from './components/WelcomeNotification';
 
 const Layout = () => {
   // const [isNotificationShown, setIsNotificationShown] = useState(false);
 
-  const {
-    customizer, sidebar, theme, rtl,
-  } = useSelector(state => ({
+  const { customizer, sidebar, theme, rtl } = useSelector((state) => ({
     customizer: state.customizer,
     sidebar: state.sidebar,
     theme: state.theme,
@@ -48,38 +52,49 @@ const Layout = () => {
   const changeToLight = () => {
     dispatch(changeThemeToLight());
   };
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+  const [open, setOpen] = useState(false);
 
   return (
-    <LayoutContainer
-      collapse={sidebar.collapse}
-      topNavigation={customizer.topNavigation}
-    >
-      <Customizer
-        changeSidebarVisibility={sidebarVisibility}
-        changeToLight={changeToLight}
-        changeToDark={changeToDark}
-      />
-      {customizer.topNavigation ? (
-        <TopbarWithNavigation
-          changeMobileSidebarVisibility={mobileSidebarVisibility}
-        />
-      ) : (
-        <Topbar
-          changeMobileSidebarVisibility={mobileSidebarVisibility}
-          changeSidebarVisibility={sidebarVisibility}
-        />
-      )}
-      <Sidebar
-        sidebar={sidebar}
-        changeToDark={changeToDark}
-        changeToLight={changeToLight}
-        changeMobileSidebarVisibility={mobileSidebarVisibility}
+    <>
+      <LayoutContainer
+        collapse={sidebar.collapse}
         topNavigation={customizer.topNavigation}
-      />
-    </LayoutContainer>
+      >
+        <Customizer
+          changeSidebarVisibility={sidebarVisibility}
+          changeToLight={changeToLight}
+          changeToDark={changeToDark}
+        />
+        {customizer.topNavigation ? (
+          <TopbarWithNavigation
+            changeMobileSidebarVisibility={mobileSidebarVisibility}
+          />
+        ) : (
+          <Topbar
+            changeMobileSidebarVisibility={mobileSidebarVisibility}
+            changeSidebarVisibility={sidebarVisibility}
+          />
+        )}
+        <Sidebar
+          sidebar={sidebar}
+          changeToDark={changeToDark}
+          changeToLight={changeToLight}
+          changeMobileSidebarVisibility={mobileSidebarVisibility}
+          topNavigation={customizer.topNavigation}
+          onClickTour={() => setOpen(true)}
+        />
+        <Tour
+          steps={steps}
+          isOpen={open}
+          onRequestClose={() => setOpen(false)}
+          accentColor="rgb(255, 72, 97)"
+        />
+      </LayoutContainer>
+    </>
   );
 };
-
 
 export default withRouter(Layout);
 
@@ -87,16 +102,22 @@ export default withRouter(Layout);
 
 const LayoutContainer = styled.div`
   & + div {
-    ${props => props.collapse && `
+    ${(props) =>
+      props.collapse &&
+      `
       ${paddingLeft(props)}: 0;
     `};
 
     @media screen and (min-width: 576px) {
-      ${props => props.collapse && `
+      ${(props) =>
+        props.collapse &&
+        `
         ${paddingLeft(props)}: 60px;
       `}
 
-      ${props => props.topNavigation && `
+      ${(props) =>
+        props.topNavigation &&
+        `
          ${paddingLeft(props)}: 0;
       `}
     }

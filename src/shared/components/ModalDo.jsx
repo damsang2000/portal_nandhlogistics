@@ -195,7 +195,6 @@ const ModalDo = (props) => {
   const getDataSize = (current, size) => {
     setPageSize(size);
   };
-  console.log(props.id);
 
   // ? call api
   useEffect(() => {

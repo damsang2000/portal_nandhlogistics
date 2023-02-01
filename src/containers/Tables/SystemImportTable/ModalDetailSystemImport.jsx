@@ -6,31 +6,9 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable camelcase */
 /* eslint-disable no-plusplus */
-import {
-  DownOutlined,
-  PlusCircleOutlined,
-  FormOutlined,
-  ConsoleSqlOutlined,
-  ContactsOutlined,
-} from '@ant-design/icons';
-import {
-  Table,
-  Tag,
-  Tooltip,
-  Dropdown,
-  DatePicker,
-  Space,
-  Typography,
-  Button,
-  Select,
-  Modal,
-  Descriptions,
-  Row,
-  Col,
-} from 'antd';
-import moment from 'moment';
+import { Table, Modal, Descriptions, Row, Col } from 'antd';
 import Cookies from 'universal-cookie';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { formarDateTimeddmmyyy, formatDateTime } from '../../../shared/helpers';
 import OrderASNApi from '../../../api/OrderASNApi';
@@ -91,6 +69,7 @@ const ModalDetailSystemImport = (props) => {
       };
       fetchASNProduct();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idchuhang.idchuhang, page, PageSize, props.id]);
 
   function createMarkup(trang_thai) {

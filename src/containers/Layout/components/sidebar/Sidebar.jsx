@@ -4,19 +4,23 @@ import styled from 'styled-components';
 import Scrollbar from '@/shared/components/ScrollBar';
 import { SidebarProps } from '@/shared/prop-types/ReducerProps';
 import { colorBackground } from '@/utils/palette';
-import { 
-  sidebarClose,
-  marginRight,
-} from '@/utils/directions';
+import { sidebarClose, marginRight } from '@/utils/directions';
 import SidebarContent from './SidebarContent';
 
 const Sidebar = ({
-  changeToDark, changeToLight, changeMobileSidebarVisibility, sidebar, topNavigation,
+  changeToDark,
+  changeToLight,
+  changeMobileSidebarVisibility,
+  sidebar,
+  topNavigation,
+  onClickTour,
+  ref1,
 }) => (
   <SidebarWrap
     show={sidebar.show}
     topNavigation={topNavigation}
     collapse={sidebar.collapse}
+    className="second-step"
   >
     <SidebarBack
       type="button"
@@ -31,6 +35,8 @@ const Sidebar = ({
           changeToDark={changeToDark}
           changeToLight={changeToLight}
           collapse={sidebar.collapse}
+          onClickTour={onClickTour}
+          ref1={ref1}
         />
       </SidebarWrapper>
     </SidebarScroll>
@@ -53,7 +59,7 @@ const SidebarWrapper = styled.div`
   display: block;
 
   @media screen and (min-width: 576px) {
-    display: ${props => (props.topNavigation ? 'none' : 'block')};
+    display: ${(props) => (props.topNavigation ? 'none' : 'block')};
   }
 `;
 
@@ -65,7 +71,6 @@ const SidebarScroll = styled(Scrollbar)`
   }
 
   .scrollbar-track {
-
     &.scrollbar-track-y {
       width: 2px;
       ${marginRight}: 3px;
@@ -95,7 +100,9 @@ const SidebarWrap = styled.div`
   z-index: 101;
   display: none;
   
-  ${props => props.show && `
+  ${(props) =>
+    props.show &&
+    `
     display: block;
     transform: ${sidebarClose};
   `};
@@ -106,7 +113,9 @@ const SidebarWrap = styled.div`
     display: block;
     top: 0;
 
-    ${props => props.collapse && `
+    ${(props) =>
+      props.collapse &&
+      `
       width: 55px;
       overflow: visible;
       transition: transform 0.3s, width 0.3s;
@@ -125,27 +134,29 @@ const SidebarWrap = styled.div`
 
   @media screen and (min-width: 1300px) {
 
-    ${props => props.topNavigation && `
+    ${(props) =>
+      props.topNavigation &&
+      `
       transform: translateX(0);
       display: none;
     `}
   }
 
   @media screen and (max-width: 1400px) {
-    ${props => props.topNavigation && 'display: none;'}
-    ${props => props.topNavigation && props.show && 'display: block;'}
+    ${(props) => props.topNavigation && 'display: none;'}
+    ${(props) => props.topNavigation && props.show && 'display: block;'}
   }
 `;
 
 const SidebarBack = styled.button`
   width: 100vw;
   position: fixed;
-  display: ${props => (props.show ? 'block' : 'none')};
+  display: ${(props) => (props.show ? 'block' : 'none')};
   background: transparent;
   border: none;
   top: 60px;
   bottom: 0;
-  
+
   @media screen and (min-width: 576px) {
     display: none;
   }
