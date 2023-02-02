@@ -268,7 +268,7 @@ const TableInventory = () => {
       ),
       dataIndex: 'trang_Thai_HTML',
       key: 'trang_thai_quet_barcode',
-      width: 120,
+      width: 150,
       // eslint-disable-next-line react/no-danger
       render: (trang_Thai_HTML) => (
         <div dangerouslySetInnerHTML={createMarkup(trang_Thai_HTML)} />

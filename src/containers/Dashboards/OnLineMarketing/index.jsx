@@ -121,12 +121,12 @@ const OnLineMarketingDashboard = () => {
         gutter={16}
         style={{ marginTop: '10px' }}
       >
+        <LineSeries />
         <SellingProduct
           datefrom={DateFrom}
           dateto={DateTo}
           isrender={IsRender}
         />
-        <LineSeries />
       </Row>
       <TotalOperatingCost />
     </Container>

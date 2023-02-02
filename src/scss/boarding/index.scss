@@ -1,0 +1,53 @@
+.intro_boarding {
+  width: 90%;
+
+  margin-top: 50px;
+  margin: 20px auto;
+  background-color: rgb(255, 255, 255);
+  padding: 50px 20px;
+  .ant-space-item {
+    width: 100%;
+  }
+}
+.connectshop {
+  width: 90%;
+
+  margin-top: 50px;
+  gap: 0px !important;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px auto;
+  background-color: rgb(255, 255, 255);
+  padding: 40px 20px;
+  .ant-space-item {
+    width: 100%;
+  }
+}
+.transport {
+  width: 90%;
+
+  margin-top: 50px;
+  gap: 0px !important;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px auto;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 20px;
+  .ant-space-item {
+    width: 100%;
+  }
+  .transport_container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+.icon {
+  background: url('../../../src/asset/img/login/NHLlogo.png') cover;
+}
+.col_ecommerce:hover {
+  cursor: pointer;
+  a {
+    text-decoration: underline;
+  }
+}

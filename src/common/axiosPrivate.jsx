@@ -1,7 +1,7 @@
 import axios from 'axios';
 import memoizedRefreshToken from './refreshToken';
 
-axios.defaults.baseURL = 'http://api-stg.nandhlogistics.vn:2530/api';
+axios.defaults.baseURL = 'https://gateway-api.nandhlogistics.vn/api';
 axios.defaults.headers = {
   'Content-Type': 'application/json',
 };

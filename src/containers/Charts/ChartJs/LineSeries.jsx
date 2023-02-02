@@ -134,7 +134,7 @@ const LineSeriesChart = () => {
             marginBottom: '0px',
           }}
         >
-          Biểu đồ chi phí vận hành
+          Biểu đồ tổng đơn hàng bán
         </Title>
       </div>
       <Card

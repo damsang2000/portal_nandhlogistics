@@ -252,7 +252,7 @@ const TableProduct = () => {
   // * render component
   return (
     <>
-      <CustomTitle level={2}>Danh mục sku</CustomTitle>
+      <CustomTitle level={2}>Danh mục sản phẩm</CustomTitle>
       <CustomLoading loading={loading.loading} />
       <Table
         columns={columns}

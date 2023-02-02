@@ -64,7 +64,7 @@ const LogInForm = ({
     if (dataLogin.password && dataLogin.userName) {
       setIsrequied(false);
       dispatch(Changeloading({ loading: true }));
-      fetch('http://api-stg.nandhlogistics.vn:2530/api/Users/loginTKS', {
+      fetch('https://gateway-api.nandhlogistics.vn/api/Users/loginTKS', {
         headers: {
           Accept: 'application/json ,',
           'Content-Type': 'application/json',

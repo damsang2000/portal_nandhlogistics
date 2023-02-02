@@ -22,6 +22,8 @@ import TikiOrder from '../../../Tables/Tiki';
 import ManageASN from '../../../Tables/AntdTable/components/ManageASN';
 import TableInventory from '../../../Tables/inventory/TableInventory';
 import CurrentInventorySell from '../../../Tables/CurrentInventory/CurrentInventorySell';
+import UserManual from '../../../Tables/UserManual';
+import ProductSell from '../../../Tables/ProductSell';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
@@ -113,6 +115,14 @@ export default () => (
     <Route
       path="/nh/config_tiki"
       component={TikiOrder}
+    />
+    <Route
+      path="/nh/onboarding"
+      component={UserManual}
+    />
+    <Route
+      path="/nh/productsell"
+      component={ProductSell}
     />
   </Switch>
 );
