@@ -48,6 +48,7 @@ const index = (props) => {
         };
         const response = await ThongKeApi.getAllThongKeXuat(data);
         if (response) {
+          console.log(response);
           setCount(response.total);
           setwaitingProcessCount(response.new);
           const countprocessing =

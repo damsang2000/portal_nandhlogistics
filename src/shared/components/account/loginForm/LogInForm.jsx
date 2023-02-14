@@ -152,21 +152,9 @@ const LogInForm = ({
                   onChange={(val) => setPassword(val)}
                   keyIcon
                 />
-                {/* <AccountForgotPassword>
-                  <NavLink to="/reset_password">Forgot a password?</NavLink>
-                </AccountForgotPassword> */}
               </FormGroupField>
             </FormGroup>
-            <FormGroup>
-              {/* <FormGroupField>
-                <Field
-                  name="remember_me"
-                  render={renderCheckBoxField}
-                  label="Remember me"
-                  type="checkbox"
-                />
-              </FormGroupField> */}
-            </FormGroup>
+            <FormGroup></FormGroup>
             <FormGroup>
               {checkLogin ? (
                 <NotificationError>

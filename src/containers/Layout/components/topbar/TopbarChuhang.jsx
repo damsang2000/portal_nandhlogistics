@@ -110,12 +110,15 @@ const App = ({ refCurrent }) => {
             : localStorage.getItem('ma_dang_nhap'),
         };
         const response = await ChuHangApi.getAll(data);
+        const getAll = {
+          label: 'Tất cả',
+          value: null,
+        };
         const mapDataChuHang = response.result.map((item) => ({
           label: `${item.tenVietTat} - ${item.tenChuHang}`,
           value: item.chuHangId,
           key: item.tenVietTat,
         }));
-
         setFilterChuHang(mapDataChuHang);
         cookies.set('idchuhang', localStorage.getItem('idchuhang'), {
           path: '/',

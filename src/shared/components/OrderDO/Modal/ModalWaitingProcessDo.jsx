@@ -201,6 +201,7 @@ const ModalWaitingProcessDo = (props) => {
             noiXuatDen: debouncedMarket ? debouncedMarket : null,
           };
           const response = await OrderDOApi.getAll(data);
+          console.log(response);
           if (!response.result) {
             setpage(1);
           } else {

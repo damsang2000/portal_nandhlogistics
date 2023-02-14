@@ -7,6 +7,7 @@ import {
   Table,
   Tooltip,
   Typography,
+  Checkbox,
 } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -37,6 +38,7 @@ const DODetailTable = () => {
   const [DODetail, setDODetail] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
   const loading = useSelector((state) => state.loading);
+  const [all, setAll] = useState(false);
   const dispatch = useDispatch();
   const { Title } = Typography;
   const { Option } = Select;
@@ -116,7 +118,7 @@ const DODetailTable = () => {
           date_To: localStorage.getItem('datetoexport')
             ? formatDateTime(localStorage.getItem('datetoexport'))
             : DateTo,
-          chu_Hang_ID: cookies.get('idchuhang'),
+          chu_Hang_ID: all ? null : cookies.get('idchuhang'),
           kho_ID: 2631604,
           trang_Thai_Xuat_Kho_ID: TrangThai ? [TrangThai] : null,
           xem_Type_ID: 1,
@@ -153,6 +155,7 @@ const DODetailTable = () => {
     debouncedNameProduct,
     debouncedAWB,
     isSearchDate,
+    all,
   ]);
 
   function createMarkup(trang_thai) {
@@ -421,9 +424,23 @@ const DODetailTable = () => {
               <Option value="3">Xuất nội bộ</Option>
               <Option value="4">Xuất kho VAS</Option>
             </Select>
+            <Checkbox
+              className="custom-checkbox"
+              onChange={() => setAll(!all)}
+            >
+              Tất cả chủ hàng
+            </Checkbox>
+            <Button
+              type="primary"
+              danger
+              className="custom-button1"
+              onClick={searchFilter}
+            >
+              Tìm kiếm
+            </Button>
           </Space>
         </Space>
-        <Space direction="vertical">
+        {/* <Space direction="vertical">
           <CustomTitleAndColor level={5}>Nơi xuất đến</CustomTitleAndColor>
           <Space
             direction="horizontal"
@@ -440,16 +457,9 @@ const DODetailTable = () => {
               <Option value="2">Viettel Post</Option>
               <Option value="3">GHN_GHN-Giao Hàng Nhanh</Option>
             </Select>
-            <Button
-              type="primary"
-              danger
-              className="custom-button1"
-              onClick={searchFilter}
-            >
-              Tìm kiếm
-            </Button>
+           
           </Space>
-        </Space>
+        </Space> */}
       </Space>
       <CustomLoading loading={loading.loading} />
       <Table

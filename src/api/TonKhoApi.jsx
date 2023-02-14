@@ -17,5 +17,9 @@ const TonKhoApi = {
     const url = '/XuatNhapKhau/GetListTonKhoDaTruDonHang';
     return axiosPrivate.post(url, data);
   },
+  getListCurrentSellDetail: (data) => {
+    const url = '/XuatNhapKhau/GetListTonKhoDaTruDonHangDetail';
+    return axiosPrivate.post(url, data);
+  },
 };
 export default TonKhoApi;

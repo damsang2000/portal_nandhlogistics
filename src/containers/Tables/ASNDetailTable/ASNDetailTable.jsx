@@ -10,6 +10,7 @@ import {
   Table,
   Tooltip,
   Typography,
+  Checkbox,
 } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -38,6 +39,8 @@ const ASNDetailTable = () => {
   const loading = useSelector((state) => state.loading);
   const [Status, setStatus] = useState(null);
   const [InputType, setInputType] = useState('-5');
+  const [all, setAll] = useState(false);
+
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const { Title } = Typography;
@@ -46,7 +49,6 @@ const ASNDetailTable = () => {
   let mapASNDetail = [];
 
   // ? state component
-
   // ! hook custom pagination
   const [
     Total,
@@ -137,7 +139,7 @@ const ASNDetailTable = () => {
             date_To: localStorage.getItem('datetoimportdetail')
               ? formatDateTime(localStorage.getItem('datetoimportdetail'))
               : DateTo,
-            chu_Hang_ID: cookies.get('idchuhang'),
+            chu_Hang_ID: all ? null : cookies.get('idchuhang'),
             kho_ID: 2631604,
             loai_Hinh_Nhap_Kho_ID: InputType,
             idKeHoach: null,
@@ -174,6 +176,7 @@ const ASNDetailTable = () => {
     debouncedProduct,
     debouncedNCC,
     isSearchDate,
+    all,
   ]);
 
   function createMarkup(trang_thai) {
@@ -401,6 +404,12 @@ const ASNDetailTable = () => {
               <Option value="1">Recieved</Option>
               <Option value="3">Complete</Option>
             </Select>
+            <Checkbox
+              className="custom-checkbox"
+              onChange={() => setAll(!all)}
+            >
+              Tất cả chủ hàng
+            </Checkbox>
             <Button
               type="primary"
               danger

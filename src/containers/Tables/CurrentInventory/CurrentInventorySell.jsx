@@ -13,6 +13,7 @@ import CustomQuantity from '../../../shared/components/CustomQuantity';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
 import InputColumns from '../../../shared/components/InputColumns';
 import { formarDateTimeddmmyyy } from '../../../shared/helpers';
+import ModalCurrentInventory from './Modal/ModalCurrentInventory';
 
 const CurrentInventorySell = () => {
   // ! hook custom pagination
@@ -30,6 +31,7 @@ const CurrentInventorySell = () => {
 
   const [currentInventory, setCurrentInventory] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const [open, setOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const CurrentInventorySell = () => {
 
   // ! state debounced
   const [numberTicket, setNumberTicket] = useState(null);
+  const [productID, setProductID] = useState([]);
   const [itemCode, setItemCode] = useState(null);
   const [itemName, setItemName] = useState(null);
   const debouncedNumberTicket = useDebounce(numberTicket, 500);
@@ -88,6 +91,19 @@ const CurrentInventorySell = () => {
       ),
       dataIndex: 'ma_San_Pham',
       width: 120,
+      fixed: 'left',
+      render: (text, record, index) => (
+        <p
+          style={{ color: '#ff4861', fontWeight: 'bold', cursor: 'pointer' }}
+          onClick={() => {
+            setProductID(record.auto_ID);
+            setOpen(true);
+          }}
+          className="style-hover"
+        >
+          {record.ma_San_Pham}
+        </p>
+      ),
     },
     {
       title: (
@@ -124,7 +140,7 @@ const CurrentInventorySell = () => {
     {
       title: 'Tên ĐVT',
       dataIndex: 'ten_Don_Vi_Tinh',
-      width: 70,
+      width: 100,
     },
     {
       title: 'Tồn Onhand',
@@ -414,6 +430,11 @@ const CurrentInventorySell = () => {
             )} (${Total} items)`}</p>
           ) : null
         }
+      />
+      <ModalCurrentInventory
+        open={open}
+        setCloseOpen={() => setOpen(false)}
+        productID={productID}
       />
     </>
   );

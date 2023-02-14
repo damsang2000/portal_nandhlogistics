@@ -43,6 +43,7 @@ const index = (props) => {
   const [handleProductReturn, setHandleProductReturn] = useState([]);
   const [handleDC, setHandleDC] = useState([]);
   const [packProduct, setPackProduct] = useState([]);
+  const [sekelton, setSekelton] = useState(true);
 
   //* CALL API
   useEffect(() => {
@@ -73,41 +74,41 @@ const index = (props) => {
         dispatch(
           changeDataArrCost({
             arrCost: [
-              response.phiLuuKho_ThanhTien,
-              response.phiXuLyHangHoa_ThanhTien,
-              response.phiBocXep_ThanhTien,
-              response.phiSoanDongGoi_ThanhTien,
-              response.phiVatTuBaoBi_ThanhTien,
-              response.phiXuLyDC_ThanhTien,
-              response.phiXuLyHangHoan_ThanhTien,
-              response.phiXuatHang_ThanhTien,
+              response.l01,
+              response.l02,
+              response.l03,
+              response.l04,
+              response.l05,
+              response.l06,
+              response.l07,
+              response.l08,
             ],
           })
         );
         const mapDataStorageProduct = response.detail.filter(
-          (item) => item.loai === 'L1'
+          (item) => item.loai === 'L01'
         );
         const mapUnloading = response.detail.filter(
-          (item) => item.loai === 'L2'
+          (item) => item.loai === 'L02'
         );
         const mapincurredProduct = response.detail.filter(
-          (item) => item.loai === 'L6'
+          (item) => item.loai === 'L06'
         );
         const mapExportProduct = response.detail.filter(
-          (item) => item.loai === 'L5'
+          (item) => item.loai === 'L05'
         );
         const mapHandleProduct = response.detail.filter(
-          (item) => item.loai === 'L3'
+          (item) => item.loai === 'L04'
         );
         const mapHandleProductReturn = response.detail.filter(
-          (item) => item.loai === 'L8'
+          (item) => item.loai === 'L03'
         );
         const mapHandleDC = response.detail.filter(
-          (item) => item.loai === 'L7'
+          (item) => item.loai === 'L08'
         );
 
         const mapPackProduct = response.detail.filter(
-          (item) => item.loai === 'L4'
+          (item) => item.loai === 'L07'
         );
 
         setDataStogareProduct(mapDataStorageProduct);
@@ -118,6 +119,7 @@ const index = (props) => {
         setHandleProductReturn(mapHandleProductReturn);
         setHandleDC(mapHandleDC);
         setPackProduct(mapPackProduct);
+        setSekelton(false);
       } catch (error) {
         console.log('fail to fetch list item', error);
       }
@@ -134,9 +136,11 @@ const index = (props) => {
       setHandleProductReturn([]);
       setHandleDC([]);
       setPackProduct([]);
+      setSekelton(true);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idchuhang.idchuhang, date]);
+  console.log(sekelton);
 
   //* RENDER COMPONENT
   return (
@@ -173,7 +177,7 @@ const index = (props) => {
           />
           <CurrencyFormat
             value={Number(
-              datatotal.tongCong ? datatotal.tongCong.toFixed(0) : 0
+              datatotal.tongThanhTien ? datatotal.tongThanhTien.toFixed(0) : 0
             )}
             displayType={'text'}
             thousandSeparator={true}
@@ -204,11 +208,13 @@ const index = (props) => {
       >
         <Row gutter={16}>
           <ShareCost
-            total={datatotal.phiLuuKho_ThanhTien}
+            total={datatotal.l01}
             title="Phí lưu kho"
             data={dataStogareProduct}
+            sekelton={sekelton}
           />
-          <ShareCost
+
+          {/* <ShareCost
             total={
               datatotal.phiXuLyHangHoa_ThanhTien +
               datatotal.phiSoanDongGoi_ThanhTien +
@@ -222,44 +228,48 @@ const index = (props) => {
             totalHanle={datatotal.phiXuLyHangHoa_ThanhTien}
             totalPack={datatotal.phiSoanDongGoi_ThanhTien}
             totalDC={datatotal.phiXuLyDC_ThanhTien}
-          />
+          /> */}
           <ShareCost
-            total={datatotal.phiBocXep_ThanhTien}
-            title="Phí bốc xếp hàng hóa"
+            total={datatotal.l02}
+            title="Phí xếp đỡ hàng hóa"
             data={unLoadingProduct}
+            sekelton={sekelton}
           />
-          {/* <ShareCost
-            total={
-              arrCost
-                ? parseInt(arrCost.arrCost[3], 10)
-                : datatotal.phiSoanDongGoi_ThanhTien
-            }
-            title="Phí soạn hàng và đóng gói"
+          <ShareCost
+            total={datatotal.l07}
+            title="Phí phát sinh"
             data={packProduct}
-          /> */}
-          <ShareCost
-            total={datatotal.phiVatTuBaoBi_ThanhTien}
-            title="Phí vật tư bao bì"
-            data={incurredProduct}
+            sekelton={sekelton}
           />
-          {/* <ShareCost
-            total={
-              arrCost
-                ? parseInt(arrCost.arrCost[5], 10)
-                : datatotal.phiXuLyDC_ThanhTien
-            }
-            title="Phí xử lý DC"
-            data={handleDC}
-          /> */}
           <ShareCost
-            total={datatotal.phiXuLyHangHoan_ThanhTien}
+            total={datatotal.l08}
+            title="Phí xử lý hàng dc"
+            data={handleDC}
+            sekelton={sekelton}
+          />
+          <ShareCost
+            total={datatotal.l06}
+            title="Phí vật tư,bao bì đóng gói"
+            data={incurredProduct}
+            sekelton={sekelton}
+          />
+          <ShareCost
+            total={datatotal.l04}
+            title="Dịch vụ cộng thêm"
+            data={handleProduct}
+            sekelton={sekelton}
+          />
+          <ShareCost
+            total={datatotal.l03}
             title="Phí xử lý hàng hoàn"
             data={handleProductReturn}
+            sekelton={sekelton}
           />
           <ShareCost
-            total={datatotal.phiXuatHang_ThanhTien}
+            total={datatotal.l05}
             title="Phí hoàn tất đơn hàng"
             data={exportProduct}
+            sekelton={sekelton}
           />
         </Row>
       </Card>

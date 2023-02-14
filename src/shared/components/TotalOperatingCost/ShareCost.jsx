@@ -1,4 +1,4 @@
-import { Card, Col, Tabs } from 'antd';
+import { Card, Col, Tabs, Skeleton } from 'antd';
 import React, { useState } from 'react';
 import CurrencyFormat from 'react-currency-format';
 import ModalTotalOperatingCost from './Modal/ModalTotalOperatingCost';
@@ -6,7 +6,7 @@ import ModalTotalOperatingCost from './Modal/ModalTotalOperatingCost';
 const ShareCost = (props) => {
   // ? state component
   const [open, setOpen] = useState(false);
-
+  console.log(props.data);
   // ? handle open
   const showModal = () => {
     if (props.data.length !== 0) {
@@ -41,34 +41,58 @@ const ShareCost = (props) => {
   // ];
   return (
     <>
-      <Col span={8}>
-        <Card
-          onClick={showModal}
-          style={{ border: 'none', cursor: 'pointer' }}
-        >
-          <p style={{ fontSize: '30px', textAlign: 'center', color: 'black' }}>
-            <CurrencyFormat
-              value={Number(props.total ? props.total.toFixed(0) : 0)}
-              displayType={'text'}
-              thousandSeparator={true}
-              renderText={(value) => <span>{value}</span>}
-            />
-          </p>
-          <p
-            style={
-              props.total && props.total !== 0
-                ? {
-                    textAlign: 'center',
-                    textDecoration: 'underline',
-                  }
-                : {
-                    textAlign: 'center',
-                  }
-            }
+      <Col span={6}>
+        {props.sekelton ? (
+          <Card
+            style={{
+              border: 'none',
+            }}
           >
-            {props.title}
-          </p>
-        </Card>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Skeleton.Input
+                active={props.sekelton}
+                style={{ marginBottom: '5px' }}
+              />
+              <Skeleton.Input active={props.sekelton} />
+            </div>
+          </Card>
+        ) : (
+          <Card
+            onClick={showModal}
+            style={{ border: 'none', cursor: 'pointer' }}
+          >
+            <p
+              style={{ fontSize: '30px', textAlign: 'center', color: 'black' }}
+            >
+              <CurrencyFormat
+                value={Number(props.total ? props.total.toFixed(0) : 0)}
+                displayType={'text'}
+                thousandSeparator={true}
+                renderText={(value) => <span>{value}</span>}
+              />
+            </p>
+            <p
+              style={
+                props.total && props.total !== 0
+                  ? {
+                      textAlign: 'center',
+                      textDecoration: 'underline',
+                    }
+                  : {
+                      textAlign: 'center',
+                    }
+              }
+            >
+              {props.title}
+            </p>
+          </Card>
+        )}
       </Col>
 
       <ModalTotalOperatingCost

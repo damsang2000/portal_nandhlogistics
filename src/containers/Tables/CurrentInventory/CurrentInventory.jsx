@@ -85,6 +85,7 @@ const CurrentInventory = () => {
           setpage={setpage}
         />
       ),
+      fixed: 'left',
       dataIndex: 'so_Phieu_Nhap_Kho',
       key: 'so_Phieu_Nhap_Kho',
       width: 200,

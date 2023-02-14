@@ -4,6 +4,7 @@ import MainWrapper from '../MainWrapper';
 
 import LogIn from '../../Account/LogIn/index';
 import WrappedRoutes from './WrappedRoutes';
+import Congratulations from '../../Tables/Congratulations/Congratulations';
 
 const Router = () => (
   <MainWrapper>
@@ -13,6 +14,11 @@ const Router = () => (
           exact
           path="/"
           component={LogIn}
+        />
+        <Route
+          exact
+          path="/congratulations"
+          component={Congratulations}
         />
         <Route
           path="/"

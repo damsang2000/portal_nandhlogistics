@@ -2,6 +2,7 @@ import { Card, CardBody } from '@/shared/components/Card';
 import { Col, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Cookies from 'universal-cookie';
 import {
   BarChart,
   Bar,
@@ -13,6 +14,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import OrderDOApi from '../../../api/OrderDOApi';
 
 function CustomizedTick(props) {
   const { x, y, payload } = props;
@@ -69,7 +71,7 @@ export const CustomTooltip = ({ active, payload, label }) => {
         <p
           className="tooltipLabel"
           style={{ fontWeight: 'bold' }}
-        >{`${label.split('-')[0]} ${label.split('-')[1]}`}</p>
+        >{`Tháng:${label.split('-')[0]}${label.split('-')[1]}`}</p>
         <p
           className="tooltipLabel"
           style={{ color: '#8884d8' }}
@@ -83,17 +85,22 @@ export const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const LineSeriesChart = () => {
-  const [listCost, setListCost] = useState([]);
+  const [listDoCount, setListDoCount] = useState([]);
   const { Title } = Typography;
+  const cookies = new Cookies();
   const labels = [
-    'Lưu-kho',
-    'Xử lý-hàng hóa',
-    'Bốc xếp-hàng hóa',
-    'Đóng gói-hàng hóa',
-    'vật tư-bao bì',
-    'Xử lý-DC',
-    'Xử lý-hàng hoàn',
-    'Xuất-hàng',
+    'Tháng-1',
+    'Tháng-2',
+    'Tháng-3',
+    'Tháng-4',
+    'Tháng-5',
+    'Tháng-6',
+    'Tháng-7',
+    'Tháng-8',
+    'Tháng-9',
+    'Tháng-10',
+    'Tháng-11',
+    'Tháng-12',
   ];
   const color = [
     '#ff4861',
@@ -104,18 +111,31 @@ const LineSeriesChart = () => {
     '#e1b12c',
     '#4cd137',
     '#192a56',
+    '#9b59b6',
+    '#55efc4',
+    '#079992',
+    '#D6A2E8',
   ];
   const costItem = useSelector((state) => state.arrCost);
   useEffect(() => {
-    if (costItem.arrCost && costItem.arrCost.length !== 0) {
-      const data = labels.map((item, index) => {
-        return {
-          name: item,
-          total: costItem.arrCost[index],
-        };
-      });
-      setListCost(data);
-    }
+    const data = {
+      chu_Hang_ID: cookies.get('idchuhang'),
+      kho_ID: 2631604,
+    };
+    const fetchListDoCount = async () => {
+      const response = await OrderDOApi.getAllCountByMonth(data);
+      console.log(response);
+      if (response) {
+        const data = response.map((item, index) => {
+          return {
+            name: `${item.month}/-${item.year}`,
+            total: item.count,
+          };
+        });
+        setListDoCount(data);
+      }
+    };
+    fetchListDoCount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [costItem.arrCost]);
 
@@ -155,7 +175,7 @@ const LineSeriesChart = () => {
               <BarChart
                 width={500}
                 height={200}
-                data={listCost.length !== 0 ? listCost : ''}
+                data={listDoCount.length !== 0 ? listDoCount : ''}
                 margin={{
                   top: 5,
                   right: 10,
@@ -179,11 +199,11 @@ const LineSeriesChart = () => {
                 />
                 <Bar
                   dataKey="total"
-                  name="Thành tiền"
+                  name="Tổng đơn hàng bán"
                   fill="#8884d8"
                 >
-                  {listCost.length !== 0
-                    ? listCost.map((entry, index) => (
+                  {listDoCount.length !== 0
+                    ? listDoCount.map((entry, index) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={color[index]}
