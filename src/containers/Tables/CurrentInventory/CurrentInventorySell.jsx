@@ -1,4 +1,4 @@
-import { Space, Table, Tooltip, Typography } from 'antd';
+import { Space, Table, Tooltip, Typography, Checkbox } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
@@ -33,6 +33,7 @@ const CurrentInventorySell = () => {
   const idchuhang = useSelector((state) => state.idchuhang);
   const [open, setOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
+  const [all, setAll] = useState(false);
   const { Title } = Typography;
   const dispatch = useDispatch();
   const cookies = new Cookies();
@@ -56,7 +57,7 @@ const CurrentInventorySell = () => {
           isAsc: true,
           page: page,
           pageCount: PageSize,
-          chu_Hang_ID: cookies.get('idchuhang'),
+          chu_Hang_ID: all ? null : cookies.get('idchuhang'),
           kho_ID: 2631604,
           ma_San_Pham: debouncedItemCode || null,
           ten_San_Pham: debouncedItemName || null,
@@ -79,6 +80,7 @@ const CurrentInventorySell = () => {
     debouncedNumberTicket,
     debouncedItemCode,
     debouncedItemName,
+    all,
   ]);
   const columns = [
     {
@@ -376,8 +378,17 @@ const CurrentInventorySell = () => {
 
   return (
     <>
-      <Space>
+      <Space direction="vertical">
         <CustomTitleAndColor level={2}>Tồn hiện tại</CustomTitleAndColor>
+        <Checkbox
+          className="custom-checkbox"
+          onChange={() => setAll(!all)}
+          style={{
+            marginBottom: '10px',
+          }}
+        >
+          Tất cả chủ hàng
+        </Checkbox>
       </Space>
       <CustomLoading loading={loading.loading} />
       <Table

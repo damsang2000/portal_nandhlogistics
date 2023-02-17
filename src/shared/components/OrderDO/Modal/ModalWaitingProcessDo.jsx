@@ -157,6 +157,9 @@ const ModalWaitingProcessDo = (props) => {
       title: 'Ngành Hàng',
       dataIndex: 'loai_San_Pham_Text',
       key: 'loai_San_Pham_Text',
+      render: (loai_San_Pham_Text) => (
+        <div dangerouslySetInnerHTML={createMarkup(loai_San_Pham_Text)} />
+      ),
     },
   ];
   //* Map data do render
