@@ -29,6 +29,18 @@ const TikiApi = {
       },
     });
   },
+  getAsyncListKho: (id_chuhang) => {
+    const url = '/Tiki/TikiWarehouseSync';
+    return axiosPrivate.get(url, {
+      params: {
+        IdChuHang: id_chuhang,
+      },
+    });
+  },
+  updateKhoTiki: (data) => {
+    const url = '/Tiki/TikiWarehouseUpdateList';
+    return axiosPrivate.post(url, data);
+  },
 };
 
 export default TikiApi;

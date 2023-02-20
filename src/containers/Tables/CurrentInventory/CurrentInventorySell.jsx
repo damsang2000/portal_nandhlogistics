@@ -92,7 +92,7 @@ const CurrentInventorySell = () => {
         />
       ),
       dataIndex: 'ma_San_Pham',
-      width: 120,
+      width: 150,
       fixed: 'left',
       render: (text, record, index) => (
         <p

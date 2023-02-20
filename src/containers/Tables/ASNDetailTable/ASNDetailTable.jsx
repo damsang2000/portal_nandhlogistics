@@ -24,6 +24,7 @@ import { Changeloading } from '../../../redux/actions/loadingAction';
 import ContenNoData from '../../../shared/components/ContenNoData';
 import CustomLoading from '../../../shared/components/CustomLoading';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
+import ExportExcelImport from '../../../shared/components/ExportExcelImport';
 import InputColumns from '../../../shared/components/InputColumns';
 import ModalDetailASN2 from '../../../shared/components/ModalDetailASN2';
 import { formarDateTimeddmmyyy, formatDateTime } from '../../../shared/helpers';
@@ -410,6 +411,7 @@ const ASNDetailTable = () => {
             >
               Tất cả chủ hàng
             </Checkbox>
+            <ExportExcelImport />
             <Button
               type="primary"
               danger
