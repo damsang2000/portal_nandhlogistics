@@ -15,6 +15,7 @@ import InputColumns from '../../InputColumns';
 const ModalHandleOrderASN = (props) => {
   // ? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   // ? state component
   // ! hook custom pagination
@@ -195,7 +196,7 @@ const ModalHandleOrderASN = (props) => {
             page: page,
             pageCount: PageSize,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             arrTrangThaiNhap: [...props.arrtrangthai],
             date_From: localStorage.getItem('datefromimportDashboard')
               ? formatDateTime(localStorage.getItem('datefromimportDashboard'))
@@ -227,6 +228,7 @@ const ModalHandleOrderASN = (props) => {
     };
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     props.isrender,

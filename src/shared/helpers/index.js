@@ -59,11 +59,10 @@ export const formatDateTimemmddyyyy = (date) => {
   return joinddmmyyyy;
 };
 export const formatDateTimemmddyyyy1 = (date) => {
-  const getddmm = date.split('-').slice(1, 3).reverse();
+  const getddmm = date.split('-').slice(1, 3);
 
   const getyyyy = date.split('-').slice(0, 1);
-  console.log(getddmm);
-  console.log(getyyyy);
+
   const joinddmmyyyy = [...getddmm, ...getyyyy].join('/');
   return joinddmmyyyy;
 };

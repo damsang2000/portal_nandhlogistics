@@ -1,4 +1,4 @@
-import { Space, Table, Tooltip, Typography } from 'antd';
+import { Space, Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
@@ -29,8 +29,8 @@ const CurrentInventory = () => {
 
   const [currentInventory, setCurrentInventory] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
-  const { Title } = Typography;
   const dispatch = useDispatch();
   const cookies = new Cookies();
   let mapCurrentInventory = [];
@@ -53,7 +53,7 @@ const CurrentInventory = () => {
           page: page,
           pageCount: PageSize,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           so_Phieu_Nhap_Kho: debouncedNumberTicket || null,
           ma_San_Pham: debouncedItemCode || null,
           ten_San_Pham: debouncedItemName || null,
@@ -70,6 +70,7 @@ const CurrentInventory = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedNumberTicket,
@@ -198,13 +199,6 @@ const CurrentInventory = () => {
       dataIndex: 'ma_Loai_San_Pham',
       width: 100,
     },
-    // {
-    //   title: 'Trạng thái',
-    //   dataIndex: 'Trang_Thai_Xuat_Kho_HTML',
-    //   key: 'trang_thai_quet_barcode',
-    //   // eslint-disable-next-line react/no-danger
-    //   render: Trang_Thai_Xuat_Kho_HTML => <div dangerouslySetInnerHTML={createMarkup(Trang_Thai_Xuat_Kho_HTML)} />,
-    // },
   ];
 
   if (currentInventory && currentInventory.length !== 0) {

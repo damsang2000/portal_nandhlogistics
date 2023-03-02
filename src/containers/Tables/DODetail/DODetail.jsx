@@ -37,10 +37,10 @@ const DODetailTable = () => {
   const [LoaiHinh, setLoaiHinh] = useState('-5');
   const [DODetail, setDODetail] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   const [all, setAll] = useState(false);
   const dispatch = useDispatch();
-  const { Title } = Typography;
   const { Option } = Select;
   const { RangePicker } = DatePicker;
   const cookies = new Cookies();
@@ -119,7 +119,7 @@ const DODetailTable = () => {
             ? formatDateTime(localStorage.getItem('datetoexport'))
             : DateTo,
           chu_Hang_ID: all ? null : cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           trang_Thai_Xuat_Kho_ID: TrangThai ? [TrangThai] : null,
           xem_Type_ID: 1,
           loai_Hinh_Xuat_Kho_ID: LoaiHinh,
@@ -149,6 +149,7 @@ const DODetailTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedTicket,

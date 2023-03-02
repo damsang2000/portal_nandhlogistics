@@ -4,29 +4,15 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable camelcase */
 /* eslint-disable no-plusplus */
-import { DownOutlined } from '@ant-design/icons';
-import {
-  Table,
-  Tag,
-  Tooltip,
-  Select,
-  Typography,
-  DatePicker,
-  Space,
-  Button,
-  Radio,
-  Input,
-} from 'antd';
+import { Table, Select, DatePicker, Space, Button, Radio } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
-import moment from 'moment';
 import dayjs from 'dayjs';
 import CustomLoading from '../../../shared/components/CustomLoading';
 import { Changeloading } from '../../../redux/actions/loadingAction';
 import { formatDateTime, formarDateTimeddmmyyy } from '../../../shared/helpers';
 import OrderDOApi from '../../../api/OrderDOApi';
-import ModalDetailWaitingProcessDo from '../../../shared/components/OrderDO/ModalDetail/ModalDetailWaitingProcessDo';
 import ModalDetailDO3 from '../../../shared/components/ModalDetailDO3';
 import { useDebounce } from '../../../hook';
 import usePagination from '../../../hook/usePagination';
@@ -41,19 +27,17 @@ const TableManageVoucher = () => {
   //! hook custom 7 date
   const [todayformat, todayformat7day, dateFormat1, date, dateFormat] =
     useFormatDate(7);
-  // const dateFormat1 = moment().format('YYYY-MM-DD');
   const [DateFrom, setDateFrom] = useState(todayformat7day);
   const [DateTo, setDateTo] = useState(dateFormat1);
   const [TrangThai, setTrangThai] = useState(null);
   const [LoaiHinh, setLoaiHinh] = useState('-5');
-  // const date = moment().format('DD/MM/YYYY');
-  // const dateFormat = 'DD/MM/YYYY';
-
   const [DODetail, setDODetail] = useState([]);
+
+  //? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
-  const { Title } = Typography;
   const { Option } = Select;
   const { RangePicker } = DatePicker;
   const cookies = new Cookies();
@@ -85,19 +69,7 @@ const TableManageVoucher = () => {
   const debouncedTicket = useDebounce(numberTicket, 500);
   const debouncedAWB = useDebounce(numberAWB, 500);
   const debouncedMarket = useDebounce(market, 500);
-  // ? function filter
-  const handleChangeTicket = (e) => {
-    setNumberTicket(e.target.value);
-    setpage(1);
-  };
-  const handleChangeAWB = (e) => {
-    setNumberAWB(e.target.value);
-    setpage(1);
-  };
-  const handleChangeMarket = (e) => {
-    setMarket(e.target.value);
-    setpage(1);
-  };
+
   // ! state check search datetime
   const [isSearchDate, setIsSearchDate] = useState(false);
 
@@ -115,9 +87,6 @@ const TableManageVoucher = () => {
   const changeValueTrangThai = (value) => {
     setTrangThai(value);
   };
-
-  // ? state data
-  const [valueSeach, setValue] = useState('');
 
   const onChangeValue = (value, dateString) => {
     const dateFromFormat = formatDateTime(dateString[0]);
@@ -145,7 +114,7 @@ const TableManageVoucher = () => {
             ? formatDateTime(localStorage.getItem('datetoexportmanage'))
             : DateTo,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           trang_Thai_ID: TrangThai,
           page: page,
           pageCount: PageSize,
@@ -171,6 +140,7 @@ const TableManageVoucher = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedTicket,
@@ -355,11 +325,6 @@ const TableManageVoucher = () => {
       ngay_Xuat_Kho: item.ngay_Xuat_Kho
         ? formarDateTimeddmmyyy(item.ngay_Xuat_Kho.slice(0, 10))
         : '',
-      // don_Gia_Xuat: item.don_Gia_Xuat ? item.don_Gia_Xuat : '',
-      // eslint-disable-next-line max-len
-      // thoi_Diem_Ra_Khoi_Kho: item.thoi_Diem_Ra_Khoi_Kho ? formarDateTimeddmmyyy(item.thoi_Diem_Ra_Khoi_Kho.slice(0, 10)) : '',
-      // thoi_Gian_Tao: item.thoi_Gian_Tao ? `${formarDateTimeddmmyyy(item.thoi_Gian_Tao.slice(0, 10))}
-      //  ${ item.thoi_Gian_Tao.slice(11, 19)}` : '',
     }));
     detail = [...mapDODetail];
   }

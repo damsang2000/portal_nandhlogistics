@@ -13,6 +13,7 @@ import ModalDetailWaitingProcessDo from '../ModalDetail/ModalDetailWaitingProces
 const ModalProcessingDo = (props) => {
   // ? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
 
   // ? state component
@@ -163,7 +164,7 @@ const ModalProcessingDo = (props) => {
               ? formatDateTime(localStorage.getItem('datetoimportDashboard'))
               : props.dateto,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             arrTrangThaiXuatKho: [2, 3, 8],
           };
           const response = await OrderDOApi.getAll(data);
@@ -184,7 +185,7 @@ const ModalProcessingDo = (props) => {
       setProductDO([]);
       setTotal(0);
     };
-  }, [idchuhang.idchuhang, page, PageSize, props.isrender]);
+  }, [idchuhang.idchuhang, idKho.idKho, page, PageSize, props.isrender]);
   function createMarkup(trang_thai) {
     return { __html: trang_thai };
   }

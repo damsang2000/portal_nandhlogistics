@@ -18,6 +18,7 @@ import ContenNoData from '../../../shared/components/ContenNoData';
 const ModalDetailSystemImport = (props) => {
   const [ASNDetail, setASNDetail] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
 
   const cookies = new Cookies();
 
@@ -34,7 +35,6 @@ const ModalDetailSystemImport = (props) => {
     getDataSize,
     pageOption,
     position,
-    setpage,
   ] = usePagination();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const ModalDetailSystemImport = (props) => {
               ? formatDateTime(localStorage.getItem('datetosystemimport'))
               : props.dateto,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             loai_Hinh_Nhap_Kho_ID: 1,
             idKeHoach: props.id,
             trang_Thai_Nhap_Kho_ID: null,
@@ -70,7 +70,7 @@ const ModalDetailSystemImport = (props) => {
       fetchASNProduct();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang, page, PageSize, props.id]);
+  }, [idchuhang.idchuhang, idKho.idKho, page, PageSize, props.id]);
 
   function createMarkup(trang_thai) {
     return { __html: trang_thai };

@@ -38,8 +38,8 @@ const SystemExportTable = () => {
 
   const [systemExportTable, setSystemExportTable] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
-  const { Title } = Typography;
   let mapSystemExportTable = [];
 
   const [DateFrom, setDateFrom] = useState(todayformat7day);
@@ -108,7 +108,7 @@ const SystemExportTable = () => {
             ? formatDateTime(localStorage.getItem('datetosystemexport'))
             : DateTo,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           xem_Type_ID: 1,
           trang_Thai_ID: -5,
           so_Phieu_Xuat_Kho: debouncedTicket || null,
@@ -135,6 +135,7 @@ const SystemExportTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedTicket,
@@ -364,29 +365,6 @@ const SystemExportTable = () => {
         bordered
         style={{ borderRadius: '20px' }}
         scroll={{ x: 1400 }}
-        // expandable={{
-        //   rowExpandable: (record) => true,
-        //   expandedRowRender: (record) => (
-        //     <table>
-        //       <thead className="ant-table-thead">
-        //         <tr>
-        //           <th className="ant-table-cell">TG Auto Pick</th>
-        //           <th className="ant-table-cell">TG Pick Xong</th>
-        //           <th className="ant-table-cell">TG Ra Kho</th>
-        //           <th className="ant-table-cell">Ngày Đặt Hàng</th>
-        //           <th className="ant-table-cell">Nơi Xuất Đến</th>
-        //         </tr>
-        //       </thead>
-        //       <tr className="ant-table-row">
-        //         <td>{record.thoi_Diem_Auto_Pick_Hang}</td>
-        //         <td>{record.thoi_Diem_Xac_Nhan_Pick_Xong}</td>
-        //         <td>{record.thoi_Diem_Ra_Khoi_Kho}</td>
-        //         <td>{record.ngay_Gio_Dat_Hang}</td>
-        //         <td>{record.ten_Sieu_Thi_Full}</td>
-        //       </tr>
-        //     </table>
-        //   ),
-        // }}
         dataSource={mapSystemExportTable}
         pagination={{
           total: Total,

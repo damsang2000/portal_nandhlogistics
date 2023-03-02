@@ -28,7 +28,7 @@ const ExportExcel = (props) => {
         chu_Hang_ID: cookies.get('idchuhang')
           ? cookies.get('idchuhang')
           : localStorage.getItem('idchuhang'),
-        kho_ID: 2631604,
+        kho_ID: Number(localStorage.getItem('kho_id')),
         hop_Dong_ID: 14847629,
       };
       const response = await axios.post(

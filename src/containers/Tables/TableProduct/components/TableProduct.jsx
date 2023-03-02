@@ -16,10 +16,10 @@ import ContenNoData from '../../../../shared/components/ContenNoData';
 
 const TableProduct = () => {
   // ? state extension
-  const { Title } = Typography;
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   // ? state component
   // ! state product
@@ -93,6 +93,7 @@ const TableProduct = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedProductName,

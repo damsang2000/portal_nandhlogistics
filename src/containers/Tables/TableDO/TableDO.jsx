@@ -1,5 +1,5 @@
 import { FormOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Dropdown, Space, Table, Typography } from 'antd';
+import { Button, DatePicker, Space, Table, Typography } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,6 @@ import usePagination from '../../../hook/usePagination';
 import { Changeloading } from '../../../redux/actions/loadingAction';
 import ContenNoData from '../../../shared/components/ContenNoData';
 import CustomLoading from '../../../shared/components/CustomLoading';
-import { IconCustom } from '../../../shared/components/IconCustom';
 import InputColumns from '../../../shared/components/InputColumns';
 import ModalDO from '../../../shared/components/modal/ModalDO';
 import ModalDo from '../../../shared/components/ModalDo';
@@ -22,10 +21,10 @@ const TableDO = () => {
   const [productDO, setProductDO] = useState([]);
   let mapProductDO = [];
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
-  const { Title } = Typography;
   const { RangePicker } = DatePicker;
   const [open, setOpen] = useState(false);
   const [openmodal, setopenmodal] = useState(false);
@@ -128,7 +127,7 @@ const TableDO = () => {
               ? formatDateTime(localStorage.getItem('datetoexport1'))
               : DateTo,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             so_Phieu_Xuat_Kho: debouncedTicket ? debouncedTicket : null,
             so_AWB: debouncedAWB ? debouncedAWB : null,
             noiXuatDen: debouncedMarket ? debouncedMarket : null,
@@ -152,6 +151,7 @@ const TableDO = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedTicket,
@@ -163,19 +163,6 @@ const TableDO = () => {
     return { __html: trang_thai };
   }
   const columns = [
-    // {
-    //   title: 'Thao tác',
-    //   width: 100,
-    //   // eslint-disable-next-line react/button-has-type
-    //   render: (text) => (
-    //     <Dropdown
-    //       placement="bottomLeft"
-    //       menu={menuProps}
-    //     >
-    //       <IconCustom />
-    //     </Dropdown>
-    //   ),
-    // },
     {
       title: (
         <InputColumns
@@ -223,13 +210,6 @@ const TableDO = () => {
       dataIndex: 'ngay_Xuat_Kho',
       key: 'ngay_Xuat_Kho',
     },
-    // {
-    //     title: 'Mã Hàng',
-    //     dataIndex: 'Ma_San_Pham',
-    //     key: 'Ma_San_Pham',
-    //     render: Ma_San_Pham => <p style={{ color: '#ff4861' }}>{Ma_San_Pham}</p>,
-    //     onFilter: (value, record) => record.Ma_San_Pham.includes(value),
-    // },
     {
       title: (
         <InputColumns

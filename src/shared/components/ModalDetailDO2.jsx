@@ -144,6 +144,7 @@ const ModalDetailDO2 = (props) => {
   const [Page, setPage] = useState(1);
 
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const [DODetail, setDODetail] = useState([]);
 
   // ! hook custom pagination
@@ -182,7 +183,7 @@ const ModalDetailDO2 = (props) => {
   //                                 ? formatDateTime(localStorage.getItem('datetoimportDashboard'))
   //                                 : props.dateto,
   //                 chu_Hang_ID: cookies.get('idchuhang'),
-  //                 kho_ID: 2631604,
+  //                 kho_ID: Number(localStorage.getItem('kho_id')),
   //                 trang_Thai_Xuat_Kho_ID: [
   //                   ...props.arrTrangThai,
   //                 ],
@@ -206,7 +207,7 @@ const ModalDetailDO2 = (props) => {
   //       setDODetail([]);
   //       setTotal(0);
   //     };
-  // }, [idchuhang.idchuhang, props.id, props.isrender]);
+  // }, [idchuhang.idchuhang,idKho.idKho, props.id, props.isrender]);
   // ? mapdodetail
   mapDODetail = [
     {

@@ -1,13 +1,4 @@
-import {
-  Button,
-  DatePicker,
-  Radio,
-  Select,
-  Space,
-  Table,
-  Tooltip,
-  Typography,
-} from 'antd';
+import { Button, DatePicker, Radio, Select, Space, Table, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,9 +35,9 @@ const AgingReport = () => {
 
   const [AgingReportProduct, setAgingReportProduct] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   const cookie = new Cookies();
-  const { Title } = Typography;
   const dispatch = useDispatch();
   let mapAgingReport = [];
 
@@ -103,7 +94,7 @@ const AgingReport = () => {
               ? formatDateTime(localStorage.getItem('datetoxuatnhapton'))
               : DateTo,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             san_Pham_ID: maHang || -5,
             xem_Type_ID: 1,
             ma_San_Pham: debouncedNumberProduct || null,
@@ -122,6 +113,7 @@ const AgingReport = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedNumberProduct,

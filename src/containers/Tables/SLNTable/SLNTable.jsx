@@ -38,8 +38,8 @@ const SLNTable = () => {
 
   const [SLNProduct, setSLNProduct] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
-  const { Title } = Typography;
   const dispatch = useDispatch();
   const cookies = new Cookies();
   let mapSLNProduct = [];
@@ -95,7 +95,7 @@ const SLNTable = () => {
               ? formatDateTime(localStorage.getItem('datetosln'))
               : DateTo,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             so_Phieu_Nhap_Kho: debouncedNumberTicket || null,
             ma_San_Pham: debouncedItemCode || null,
             ten_San_Pham: debouncedItemName || null,
@@ -113,6 +113,7 @@ const SLNTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedNumberTicket,

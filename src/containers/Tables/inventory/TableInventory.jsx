@@ -1,13 +1,9 @@
-import { Table, Typography, Space, Button, DatePicker, Dropdown } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { Table, Typography, Space, Button, DatePicker } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-// import { useDebounce } from '../../../../hook';
 import ContenNoData from '../../../shared/components/ContenNoData';
 // ? import component
-// import ListItemApi from '../../../../api/ListItemApi';
-// import usePagination from '../../../../hook/usePagination';
 import { Changeloading } from '../../../redux/actions/loadingAction';
 import KhoApi from '../../../api/KhoAPI';
 import CustomLoading from '../../../shared/components/CustomLoading';
@@ -21,7 +17,6 @@ import dayjs from 'dayjs';
 import { useDebounce } from '../../../hook';
 import TableInventoryDetail from './modal/TableInventoryDetail';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
-import { IconCustom } from '../../../shared/components/IconCustom';
 import ExportExcel from '../../../shared/components/account/ExportExcel';
 
 // import CustomLoading from '../../../../shared/components/CustomLoading';
@@ -31,11 +26,11 @@ import ExportExcel from '../../../shared/components/account/ExportExcel';
 
 const TableInventory = () => {
   //   // ? state extension
-  const { Title } = Typography;
   const cookies = new Cookies();
   const { RangePicker } = DatePicker;
   const dispatch = useDispatch();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   //   // ? state component
   //   // ! state product
@@ -92,16 +87,6 @@ const TableInventory = () => {
   const searchFilter = () => {
     setIsDateChange(!isDateChange);
   };
-  // const items = [
-  //   {
-  //     label: <ExportExcel />,
-  //     key: '1',
-  //     icon: <PlusCircleOutlined />,
-  //   },
-  // ];
-  // const menuProps = {
-  //   items,
-  // };
   // * Call API =================================================================
   useEffect(() => {
     handleChangeLoading(true);
@@ -119,7 +104,7 @@ const TableInventory = () => {
             date_To: localStorage.getItem('datetoInventory')
               ? formatDateTime(localStorage.getItem('datetoInventory'))
               : DateTo,
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             khu_Vuc_ID: positionInventory ? positionInventory : null,
             trang_Thai_Text: debouncedStatusInventory
               ? debouncedStatusInventory
@@ -143,14 +128,11 @@ const TableInventory = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     positionInventory,
     isDateChange,
     debouncedStatusInventory,
     dateFilterInventory,
-    // page,
-    // PageSize,
-    // debouncedProductName,
-    // debouncedNumberProduct,
   ]);
 
   // * columns table and map data=============================
@@ -192,18 +174,6 @@ const TableInventory = () => {
       ),
       dataIndex: 'ten_Khu_Vuc_Kho',
       width: 150,
-      //   render: (text, record) => (
-      //     <span
-      //       className="custom-color-hover-p"
-      //       style={{ color: '#3742fa', cursor: 'pointer' }}
-      //       onClick={() => {
-      //         setOpenModalDetail(true);
-      //         getValueColumn(record);
-      //       }}
-      //     >
-      //       {record.ten_San_Pham}
-      //     </span>
-      //   ),
     },
 
     {
@@ -249,14 +219,6 @@ const TableInventory = () => {
           children: <div className="center-text">{record.so_Luong_Le}</div>,
         };
       },
-      //   render(text, record) {
-      //     return {
-      //       props: {
-      //         style: { background: 'rgba(112, 111, 211,0.3)' },
-      //       },
-      //       children: <div className="center-text">{record.sL_Cai_1_Thung}</div>,
-      //     };
-      //   },
     },
     {
       title: (
@@ -278,43 +240,7 @@ const TableInventory = () => {
       title: 'Ghi chú',
       dataIndex: 'ghi_Chu',
       key: 'ghi_Chu',
-      //   render(text, record) {
-      //     return {
-      //       props: {
-      //         style: { background: 'rgba(255, 218, 121,0.3)' },
-      //       },
-      //       children: <div className="center-text">{record.gw}</div>,
-      //     };
-      //   },
     },
-    // {
-    //   title: 'NW',
-    //   dataIndex: 'nw',
-    //   key: 'nw',
-    //   width: 80,
-    //   render(text, record) {
-    //     return {
-    //       props: {
-    //         style: { background: 'rgba(255, 218, 121,0.3)' },
-    //       },
-    //       children: <div className="center-text">{record.nw}</div>,
-    //     };
-    //   },
-    // },
-    // {
-    //   title: 'CBM',
-    //   dataIndex: 'cbm',
-    //   key: 'cbm',
-    //   width: 80,
-    //   render(text, record) {
-    //     return {
-    //       props: {
-    //         style: { background: 'rgba(255, 218, 121,0.3)' },
-    //       },
-    //       children: <div className="center-text">{record.cbm}</div>,
-    //     };
-    //   },
-    // },
   ];
 
   //* map data===============================================
@@ -379,31 +305,9 @@ const TableInventory = () => {
           >{`Page ${1} of 1 (0 items)`}</p>
         )}
         pagination={{
-          //   total: Total,
-          //   onChange: getData,
-          //   current: page,
-          //   pageSize: PageSize,
-          //   onShowSizeChange: getDataSize,
           position: position,
-          //   pageSizeOptions: pageOption,
         }}
-        // footer={() =>
-        //   page && Total ? (
-        //     <p
-        //       style={{
-        //         color: 'black',
-        //       }}
-        //     >{`Page ${page} of ${Math.ceil(
-        //       Total / PageSize
-        //     )} (${Total} items)`}</p>
-        //   ) : null
-        // }
       />
-      {/* <ModalTableProduct
-        open={openModalDetail}
-        callBackCancel={() => setOpenModalDetail(false)}
-        dataDetail={dataDetail}
-      /> */}
       <TableInventoryDetail
         open={open}
         callBackOpen={() => setOpen(false)}

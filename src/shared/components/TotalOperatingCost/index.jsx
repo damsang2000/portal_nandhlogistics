@@ -25,6 +25,7 @@ const index = (props) => {
   // ? state extension
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const arrCost = useSelector((state) => state.arrCost);
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const index = (props) => {
           date_From: startOfMonth,
           date_To: endOfMonth,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
         };
 
         const response = await ThongKeApi.getAllChiPhiVanHanh(data);
@@ -139,7 +140,7 @@ const index = (props) => {
       setSekelton(true);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang, date]);
+  }, [idchuhang.idchuhang, idKho.idKho, date]);
   console.log(sekelton);
 
   //* RENDER COMPONENT

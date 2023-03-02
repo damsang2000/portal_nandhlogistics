@@ -37,9 +37,9 @@ const SystemImportTable = () => {
 
   const [systemImportTable, setSystemImportTable] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   const [datadetail, setdatadetail] = useState('');
-  const { Title } = Typography;
 
   const [DateFrom, setDateFrom] = useState(todayformat7day);
   const [DateTo, setDateTo] = useState(dateFormat1);
@@ -112,7 +112,7 @@ const SystemImportTable = () => {
             ? formatDateTime(localStorage.getItem('datetosystemimport'))
             : DateTo,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           ma_NCC: debouncedNCC,
           so_Phieu_Nhap_Kho: debouncedTicket,
         };
@@ -136,6 +136,7 @@ const SystemImportTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedNCC,

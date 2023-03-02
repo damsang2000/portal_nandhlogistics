@@ -17,6 +17,14 @@ const KhoApi = {
     const url = '/WarehouseReport/ExportPhieuKiemKho';
     return axiosPrivate.post(url, data);
   },
+  getListKhoByUser: (username) => {
+    const url = '/DanhMucKho/GetListByUser';
+    return axiosPrivate.get(url, {
+      params: {
+        username: username,
+      },
+    });
+  },
 };
 
 export default KhoApi;

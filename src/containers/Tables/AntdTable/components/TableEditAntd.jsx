@@ -2,8 +2,6 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import {
   Button,
   DatePicker,
-  Dropdown,
-  Empty,
   notification,
   Space,
   Table,
@@ -22,7 +20,6 @@ import { Changeloading } from '../../../../redux/actions/loadingAction';
 import ContenNoData from '../../../../shared/components/ContenNoData';
 import CustomLoading from '../../../../shared/components/CustomLoading';
 import { CustomTitleAndColor } from '../../../../shared/components/CustomTitle';
-import { IconCustom } from '../../../../shared/components/IconCustom';
 import InputColumns from '../../../../shared/components/InputColumns';
 import ModalASN from '../../../../shared/components/modal/ModalASN';
 import ModalDetailAsn from '../../../../shared/components/ModalDetailAsn';
@@ -34,11 +31,11 @@ import {
 const TableASN = () => {
   //? State extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const { RangePicker } = DatePicker;
-  const { Title } = Typography;
   const [api, contextHolder] = notification.useNotification();
 
   //? state component
@@ -132,7 +129,7 @@ const TableASN = () => {
             page: page,
             pageCount: PageSize,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             arrTrangThaiNhap: [4],
             date_From: localStorage.getItem('datefrom')
               ? formatDateTime(localStorage.getItem('datefrom'))
@@ -166,6 +163,7 @@ const TableASN = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debounced,
@@ -175,19 +173,6 @@ const TableASN = () => {
   ]);
   //* Colunns Tables
   const columns = [
-    // {
-    //   title: 'Thao tác',
-    //   width: 100,
-    //   // eslint-disable-next-line react/button-has-type
-    //   render: (text) => (
-    //     <Dropdown
-    //       placement="bottomLeft"
-    //       menu={menuProps}
-    //     >
-    //       <IconCustom />
-    //     </Dropdown>
-    //   ),
-    // },
     {
       title: (
         <InputColumns

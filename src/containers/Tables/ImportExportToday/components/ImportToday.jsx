@@ -33,6 +33,7 @@ const ImportToday = (props) => {
 
   const [ImportTable, setImportTable] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ const ImportToday = (props) => {
             : // eslint-disable-next-line react/prop-types
               props.ImportExportToday,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           xem_Type_ID: 1,
           ma_NCC: debouncedNCC || null,
           so_Phieu_Nhap_Kho: debouncedTicket || null,
@@ -87,6 +88,7 @@ const ImportToday = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     props.ImportExportToday,
     debouncedNCC,
     debouncedTicket,

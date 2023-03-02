@@ -11,6 +11,7 @@ const ListItem = (props) => {
   const [MaHang, setMaHang] = useState(props.ismodal ? null : null);
   const [ListHang, setListHang] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const dispatch = useDispatch();
   const cookies = new Cookies();
 
@@ -69,7 +70,7 @@ const ListItem = (props) => {
       };
       fetchListItem();
     }
-  }, [idchuhang.idchuhang]);
+  }, [idchuhang.idchuhang, idKho.idKho]);
 
   return (
     <Space

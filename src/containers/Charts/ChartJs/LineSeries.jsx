@@ -120,7 +120,7 @@ const LineSeriesChart = () => {
   useEffect(() => {
     const data = {
       chu_Hang_ID: cookies.get('idchuhang'),
-      kho_ID: 2631604,
+      kho_ID: Number(localStorage.getItem('kho_id')),
     };
     const fetchListDoCount = async () => {
       const response = await OrderDOApi.getAllCountByMonth(data);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, DatePicker, Space, Table, Tooltip, Typography } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -37,8 +38,8 @@ const RegulatoryHistoryTable = () => {
 
   const [regulatoryHistory, setRegulatoryHistory] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
-  const { Title } = Typography;
   const { RangePicker } = DatePicker;
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
@@ -59,7 +60,6 @@ const RegulatoryHistoryTable = () => {
 
   // ? state filter
   const [numberTicket, setNumberTicket] = useState(null);
-  const [numberAWB, setNumberAWB] = useState(null);
   const [nameProduct, setNameProduct] = useState(null);
 
   // ? state debounced
@@ -88,7 +88,7 @@ const RegulatoryHistoryTable = () => {
             ? formatDateTime(localStorage.getItem('datetohistory'))
             : DateTo,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           so_Phieu_Nhap_Kho: debouncedTicket || null,
           ten_San_Pham: debouncedNameProduct || null,
         };
@@ -111,6 +111,7 @@ const RegulatoryHistoryTable = () => {
     };
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedTicket,
@@ -313,27 +314,6 @@ const RegulatoryHistoryTable = () => {
         columns={columns}
         bordered
         style={{ borderRadius: '20px' }}
-        // expandable={{
-        //   rowExpandable: (record) => true,
-        //   expandedRowRender: (record) => (
-        //     <table>
-        //       <thead className="ant-table-thead">
-        //         <tr>
-        //           <th className="ant-table-cell">Kiện Cũ</th>
-        //           <th className="ant-table-cell">SL Cũ</th>
-        //           <th className="ant-table-cell">Kiện Mới</th>
-        //           <th className="ant-table-cell">SL Mới</th>
-        //         </tr>
-        //       </thead>
-        //       <tr className="ant-table-row">
-        //         <td>{record.so_Kien_Cu}</td>
-        //         <td>{record.so_Luong_Cu}</td>
-        //         <td>{record.so_Kien_Moi}</td>
-        //         <td>{record.so_Luong_Moi}</td>
-        //       </tr>
-        //     </table>
-        //   ),
-        // }}
         dataSource={mapAdjustmentHistory}
         scroll={{ x: 1200 }}
         locale={{

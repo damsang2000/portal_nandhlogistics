@@ -28,6 +28,7 @@ const ModalDetailASN = (props) => {
   //! state asn
   const [ASNDetail, setASNDetail] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   let mapASNDetail = [];
 
   //? function handle
@@ -242,7 +243,7 @@ const ModalDetailASN = (props) => {
               ? formatDateTime(localStorage.getItem('datetoimportDashboard'))
               : props.dateto,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             loai_Hinh_Nhap_Kho_ID: props.inputType,
             idKeHoach: props.id,
             trang_Thai_Nhap_Kho_ID: [...props.arrTrangThai],
@@ -257,7 +258,7 @@ const ModalDetailASN = (props) => {
       };
       fetchASNProduct();
     }
-  }, [idchuhang.idchuhang, page, PageSize, props.id]);
+  }, [idchuhang.idchuhang, idKho.idKho, page, PageSize, props.id]);
 
   //* render component=========================================================
   return (

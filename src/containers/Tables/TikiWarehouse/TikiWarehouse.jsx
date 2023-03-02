@@ -1,11 +1,14 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Button, Checkbox, Select, Space, Table, notification } from 'antd';
 import Cookies from 'universal-cookie';
 import { useSelector } from 'react-redux';
 import TikiApi from '../../../api/TikiApi';
-import { number } from 'prop-types';
+import KhoApi from '../../../api/KhoAPI';
 const TikiWarehouse = () => {
   //state
+  const [listKhoNH, setListKhoNH] = useState([]);
   const [listKhoTiki, setListKhoTiki] = useState([]);
   const [updateKhoTiki, setUpdateKhoTiki] = useState([]);
   const [checkIndex1, setCheckIndex1] = useState(0);
@@ -19,17 +22,14 @@ const TikiWarehouse = () => {
   // state extension
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
-  // columns
+  const idKho = useSelector((state) => state.idKho);
+  const username = localStorage.getItem('ma_dang_nhap');
+  //? columns
   const arrSelect = [
     {
       key: 'An Phú Đông',
       label: 'An Phú Đông',
       value: '1123',
-    },
-    {
-      key: 'An Phú Đông1',
-      label: 'An Phú Đông1',
-      value: '1124',
     },
   ];
   const columns = [
@@ -65,6 +65,9 @@ const TikiWarehouse = () => {
             if (Number(eval(`checkIndex${record.index}`)) === 0) {
               const setName = eval(`setCheckIndex${Number(record.index)}`);
               setName(Number(record.index));
+              if (listKhoNH.length === 0) {
+                fetchListKhoNH();
+              }
             } else {
               const setName = eval(`setCheckIndex${Number(record.index)}`);
               setName(0);
@@ -79,7 +82,7 @@ const TikiWarehouse = () => {
       dataIndex: 'kho',
       render: (select, record) => (
         <Select
-          options={arrSelect}
+          options={listKhoNH}
           disabled={
             // eslint-disable-next-line no-eval
             record.index === eval(`checkIndex${record.index}`) ? false : true
@@ -100,16 +103,20 @@ const TikiWarehouse = () => {
       width: 200,
     },
   ];
-  console.log(updateKhoTiki);
 
+  //? handle update kho tiki
   const handleUpdate = async () => {
-    const res = await TikiApi.updateKhoTiki(updateKhoTiki);
-    if (Number(res.errorCode) === 200) {
-      openNotificationWithIcon('success', res.errorMess);
+    if (!updateKhoTiki.length === 0) {
+      const res = await TikiApi.updateKhoTiki(updateKhoTiki);
+      if (Number(res.errorCode) === 200) {
+        openNotificationWithIcon('success', res.errorMess);
+      }
+    } else {
+      openNotificationWithIcon('error', 'Chọn kho để lưu');
     }
   };
 
-  // * function handle notification
+  //? function handle notification
   const [api, contextHolder] = notification.useNotification();
   const openNotificationWithIcon = (type, message, des) => {
     api[type]({
@@ -118,10 +125,9 @@ const TikiWarehouse = () => {
       duration: 1,
     });
   };
-
+  //? call api lúc đầu
   const fetchListKho = async () => {
     const response = await TikiApi.getListKho(cookies.get('idchuhang'));
-    console.log(response.result);
     if (response.result) {
       const mapDataTiki = response.result.map((item, index) => {
         return {
@@ -129,10 +135,10 @@ const TikiWarehouse = () => {
           index: index + 1,
         };
       });
-      console.log(listKhoTiki);
       setListKhoTiki(mapDataTiki);
     }
   };
+  //? call api đồng bộ
   const asyncListKho = async () => {
     const response = await TikiApi.getAsyncListKho(cookies.get('idchuhang'));
     if (response.result) {
@@ -145,6 +151,21 @@ const TikiWarehouse = () => {
       setListKhoTiki(mapDataTiki);
     }
   };
+
+  //? get list kho
+  const fetchListKhoNH = async () => {
+    const response = await KhoApi.getListKhoByUser(username);
+    if (response.length !== 0) {
+      const mapListKho = response.map((item) => {
+        return {
+          label: item.tenKho,
+          value: item.khoId,
+        };
+      });
+      setListKhoNH(mapListKho);
+    }
+  };
+
   useEffect(() => {
     fetchListKho();
     return () => {
@@ -157,7 +178,7 @@ const TikiWarehouse = () => {
       setCheckIndex5(0);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang]);
+  }, [idchuhang.idchuhang, idKho.idKho]);
 
   return (
     <>
@@ -179,6 +200,9 @@ const TikiWarehouse = () => {
           <Button
             type="primary"
             danger
+            style={{
+              width: '100%',
+            }}
             onClick={handleUpdate}
           >
             Lưu

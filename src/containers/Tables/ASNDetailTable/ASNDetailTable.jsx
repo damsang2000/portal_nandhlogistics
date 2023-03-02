@@ -37,6 +37,7 @@ const ASNDetailTable = () => {
   const [DateTo, setDateTo] = useState(dateFormat1);
   const [ASNDetail, setASNDetail] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
   const [Status, setStatus] = useState(null);
   const [InputType, setInputType] = useState('-5');
@@ -141,7 +142,7 @@ const ASNDetailTable = () => {
               ? formatDateTime(localStorage.getItem('datetoimportdetail'))
               : DateTo,
             chu_Hang_ID: all ? null : cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             loai_Hinh_Nhap_Kho_ID: InputType,
             idKeHoach: null,
             trang_Thai_Nhap_Kho_ID: Status ? [Status] : null,
@@ -171,6 +172,7 @@ const ASNDetailTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedTicket,

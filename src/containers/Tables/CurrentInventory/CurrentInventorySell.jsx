@@ -1,8 +1,7 @@
-import { Space, Table, Tooltip, Typography, Checkbox } from 'antd';
+import { Space, Table, Tooltip, Checkbox } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import KhoApi from '../../../api/KhoAPI';
 import TonKhoApi from '../../../api/TonKhoApi';
 import { useDebounce } from '../../../hook';
 import usePagination from '../../../hook/usePagination';
@@ -12,7 +11,6 @@ import CustomLoading from '../../../shared/components/CustomLoading';
 import CustomQuantity from '../../../shared/components/CustomQuantity';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
 import InputColumns from '../../../shared/components/InputColumns';
-import { formarDateTimeddmmyyy } from '../../../shared/helpers';
 import ModalCurrentInventory from './Modal/ModalCurrentInventory';
 
 const CurrentInventorySell = () => {
@@ -31,10 +29,10 @@ const CurrentInventorySell = () => {
 
   const [currentInventory, setCurrentInventory] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const [open, setOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
   const [all, setAll] = useState(false);
-  const { Title } = Typography;
   const dispatch = useDispatch();
   const cookies = new Cookies();
   let mapCurrentInventory = [];
@@ -58,7 +56,7 @@ const CurrentInventorySell = () => {
           page: page,
           pageCount: PageSize,
           chu_Hang_ID: all ? null : cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           ma_San_Pham: debouncedItemCode || null,
           ten_San_Pham: debouncedItemName || null,
         };
@@ -75,6 +73,7 @@ const CurrentInventorySell = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedNumberTicket,
@@ -82,6 +81,7 @@ const CurrentInventorySell = () => {
     debouncedItemName,
     all,
   ]);
+
   const columns = [
     {
       title: (
@@ -301,72 +301,6 @@ const CurrentInventorySell = () => {
         },
       ],
     },
-    // {
-    //   title: 'Kiện',
-    //   dataIndex: 'so_Kien_Ton',
-    //   width: 70,
-    //   render(text, record) {
-    //     return {
-    //       props: {
-    //         style: { background: 'rgba(112, 111, 211,0.3)' },
-    //       },
-    //       children: <CustomQuantity value={record.so_Kien_Ton} />,
-    //     };
-    //   },
-    // },
-    // {
-    //   title: 'SL',
-    //   dataIndex: 'so_Luong_Ton',
-    //   width: 70,
-    //   render(text, record) {
-    //     return {
-    //       props: {
-    //         style: { background: 'rgba(112, 111, 211,0.3)' },
-    //       },
-    //       children: <CustomQuantity value={record.so_Luong_Ton} />,
-    //     };
-    //   },
-    // },
-    // {
-    //   title: 'Đơn giá',
-    //   dataIndex: 'don_Gia',
-    //   width: 120,
-    // },
-    // {
-    //   title: 'Ngày NK',
-    //   dataIndex: 'ngay_Nhap_Kho',
-    //   width: 110,
-    // },
-    // {
-    //   title: 'Số Ngày Lưu Kho',
-    //   dataIndex: 'so_Ngay_Luu_Kho',
-    //   width: 90,
-    //   render(text, record) {
-    //     return {
-    //       props: {
-    //         style: { background: 'rgba(112, 111, 211,0.3)' },
-    //       },
-    //       children: <CustomQuantity value={record.so_Ngay_Luu_Kho} />,
-    //     };
-    //   },
-    // },
-    // {
-    //   title: 'Số Ngày HSD',
-    //   dataIndex: 'so_Ngay_HSD',
-    //   width: 100,
-    // },
-    // {
-    //   title: 'Mã Loại Hàng',
-    //   dataIndex: 'ma_Loai_San_Pham',
-    //   width: 100,
-    // },
-    // {
-    //   title: 'Trạng thái',
-    //   dataIndex: 'Trang_Thai_Xuat_Kho_HTML',
-    //   key: 'trang_thai_quet_barcode',
-    //   // eslint-disable-next-line react/no-danger
-    //   render: Trang_Thai_Xuat_Kho_HTML => <div dangerouslySetInnerHTML={createMarkup(Trang_Thai_Xuat_Kho_HTML)} />,
-    // },
   ];
 
   if (currentInventory && currentInventory.length !== 0) {
@@ -398,27 +332,6 @@ const CurrentInventorySell = () => {
         locale={{
           emptyText: <ContenNoData desc="Không có dữ liệu" />,
         }}
-        // expandable={{
-        //   rowExpandable: (record) => true,
-        //   expandedRowRender: (record) => (
-        //     <table>
-        //       <thead className="ant-table-thead">
-        //         <tr>
-        //           <th className="ant-table-cell">GW</th>
-        //           <th className="ant-table-cell">CBM</th>
-        //           <th className="ant-table-cell">Ngày Hết Hạn</th>
-        //           <th className="ant-table-cell">Life</th>
-        //         </tr>
-        //       </thead>
-        //       <tr className="ant-table-row">
-        //         <td>{record.gw}</td>
-        //         <td>{record.cbm}</td>
-        //         <td>{record.ngay_Het_Han}</td>
-        //         <td>{record.life}</td>
-        //       </tr>
-        //     </table>
-        //   ),
-        // }}
         dataSource={mapCurrentInventory}
         scroll={{ x: 1200 }}
         pagination={{

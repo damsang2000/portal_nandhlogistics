@@ -5,18 +5,15 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable camelcase */
 /* eslint-disable no-plusplus */
-import { DownOutlined } from '@ant-design/icons';
 import {
   Space,
   Table,
-  Tag,
   Tooltip,
   Typography,
   DatePicker,
   Button,
   Input,
 } from 'antd';
-import moment from 'moment';
 import dayjs from 'dayjs';
 import Cookies from 'universal-cookie';
 import { useSelector, useDispatch } from 'react-redux';
@@ -51,8 +48,8 @@ const SLXTable = () => {
 
   const [SLXProduct, setSLXProduct] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const loading = useSelector((state) => state.loading);
-  const { Title } = Typography;
   const dispatch = useDispatch();
   const cookies = new Cookies();
   let mapSLXProduct = [];
@@ -118,7 +115,7 @@ const SLXTable = () => {
               ? formatDateTime(localStorage.getItem('datetoslx'))
               : DateTo,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             loai_Hinh_Nhap_Kho_ID: -5,
             trang_Thai_Nhap_Kho_ID: -5,
             so_Phieu_Xuat_Kho: debouncedNumberTicket || null,
@@ -138,6 +135,7 @@ const SLXTable = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     debouncedNumberTicket,

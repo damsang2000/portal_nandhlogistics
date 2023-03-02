@@ -20,6 +20,7 @@ import {
   ChuHangArrReducer,
   TokenReducer,
   arrCostReducer,
+  KhoArrReducer,
 } from '@/redux/reducers/index';
 import appConfigReducer from '@/redux/reducers/appConfigReducer';
 
@@ -44,6 +45,7 @@ const reducer = combineReducers({
   arrChuHang: ChuHangArrReducer,
   token: TokenReducer,
   arrCost: arrCostReducer,
+  idKho: KhoArrReducer,
 });
 const store = createStore(reducer, applyMiddleware(thunk));
 

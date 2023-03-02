@@ -37,6 +37,7 @@ import ContenNoData from './ContenNoData';
 const ModalDetailASN2 = (props) => {
   const [ASNDetail, setASNDetail] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
 
   const cookies = new Cookies();
 

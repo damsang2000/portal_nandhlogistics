@@ -37,7 +37,7 @@ const ModalCurrentInventory = ({ open, setCloseOpen, productID }) => {
         page: page,
         pageCount: PageSize,
         chu_Hang_ID: cookies.get('idchuhang'),
-        kho_ID: 2631604,
+        kho_ID: Number(localStorage.getItem('kho_id')),
         san_Pham_ID: productID,
         so_Phieu_Xuat_Kho: null,
         ngay_Xuat_Kho: null,

@@ -21,6 +21,7 @@ const index = (props) => {
   // ? state extension
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const { Title } = Typography;
 
   // ? state component
@@ -40,7 +41,7 @@ const index = (props) => {
             ? formatDateTime(localStorage.getItem('datetoimportDashboard'))
             : props.dateto,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           xem_Type_ID: 2,
         };
         const response = await ThongKeApi.getAllThongKeNhap(data);
@@ -63,7 +64,7 @@ const index = (props) => {
       setHandleRefundOrderCount(0);
       setCompleteRefundOrderCount(0);
     };
-  }, [idchuhang.idchuhang, props.isrender]);
+  }, [idchuhang.idchuhang, idKho.idKho, props.isrender]);
 
   //* RENDER COMPONENT=================================================
   return (

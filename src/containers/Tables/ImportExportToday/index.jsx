@@ -1,4 +1,4 @@
-import { Button, DatePicker, Radio, Space, Tabs, Typography } from 'antd';
+import { Button, DatePicker, Radio, Space, Tabs } from 'antd';
 import dayjs from 'dayjs';
 import React, { useRef, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
@@ -9,7 +9,6 @@ import ExportToday from './components/ExportToday';
 import ImportToday from './components/ImportToday';
 
 const ImportExportToday = () => {
-  const { Title } = Typography;
   //! hook custom 7 date
   const [todayformat, todayformat7day, dateFormat1, date, dateFormat] =
     useFormatDate(7);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-dupe-keys */
 /* eslint-disable max-len */
 /* eslint-disable object-shorthand */
@@ -11,21 +12,7 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { useSelector } from 'react-redux';
 import CurrencyFormat from 'react-currency-format';
-import {
-  Table,
-  Tag,
-  Tooltip,
-  Select,
-  Typography,
-  DatePicker,
-  Space,
-  Button,
-  Radio,
-  Modal,
-  Row,
-  Col,
-  Descriptions,
-} from 'antd';
+import { Table, Modal, Row, Col, Descriptions } from 'antd';
 import { formarDateTimeddmmyyy } from '../../../shared/helpers';
 import OrderDOApi from '../../../api/OrderDOApi';
 import usePagination from '../../../hook/usePagination';
@@ -43,15 +30,6 @@ const ModalDetailSystemExport = (props) => {
       key: 'ma_San_Pham',
       width: 120,
     },
-    // {
-    //     title: 'Ngày XK',
-    //     dataIndex: 'ngay_Xuat_Kho',
-    // },
-    // {
-    //     title: 'Số AWB',
-    //     dataIndex: 'so_AWB',
-    //     render: so_AWB => <p style={{ color: '#20bf6b', fontWeight: 'bold' }}>{so_AWB}</p>,
-    // },
     {
       title: 'Tên Hàng',
       dataIndex: 'ten_San_Pham',
@@ -61,15 +39,6 @@ const ModalDetailSystemExport = (props) => {
           {ten_San_Pham}
         </p>
       ),
-
-      // ellipsis: {
-      //     showTitle: false,
-      // },
-      // render: ten_San_Pham => (
-      //     <Tooltip placement="topLeft" title={ten_San_Pham}>
-      //     {ten_San_Pham}
-      //     </Tooltip>
-      // ),
     },
     {
       title: 'Case No',
@@ -119,10 +88,6 @@ const ModalDetailSystemExport = (props) => {
       title: 'SL Lẻ',
       dataIndex: '',
     },
-    // {
-    //     title: 'Tên ĐVT',
-    //     dataIndex: 'ten_Don_Vi_Tinh',
-    // },
     {
       title: 'Đơn giá xuất',
       dataIndex: 'don_Gia_Xuat',
@@ -188,10 +153,10 @@ const ModalDetailSystemExport = (props) => {
     getDataSize,
     pageOption,
     position,
-    setpage,
   ] = usePagination();
 
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const [DODetail, setDODetail] = useState([]);
 
   let mapDODetail = [];
@@ -201,36 +166,6 @@ const ModalDetailSystemExport = (props) => {
 
   // ? call api
   useEffect(() => {
-    // fetch(
-    //   'http://api-stg.nandhlogistics.vn:2530/api/XuatNhapKhau/GetListChiTietHangXuat',
-    //   {
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    //     },
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       sortName: null,
-    //       isAsc: false,
-    //       page: 0,
-    //       pageCount: 0,
-    //       date_From: props.datefrom,
-    //       date_To: props.dateto,
-    //       chu_Hang_ID: cookies.get('idchuhang'),
-    //       kho_ID: 2631604,
-    //       trang_Thai_Xuat_Kho_ID: [...props.arrTrangThai],
-    //       xem_Type_ID: 3,
-    //       sieu_Thi_ID: -5,
-    //       idKeHoach: props.id,
-    //     }),
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setDODetail(data.result);
-    //     setTotal(data.total);
-    //   });
     const fetchCategoryProduct = async () => {
       try {
         const data = {
@@ -242,7 +177,7 @@ const ModalDetailSystemExport = (props) => {
           date_From: props.datefrom,
           date_To: props.dateto,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           trang_Thai_Xuat_Kho_ID: null,
           xem_Type_ID: 3,
           sieu_Thi_ID: -5,
@@ -256,7 +191,7 @@ const ModalDetailSystemExport = (props) => {
       }
     };
     fetchCategoryProduct();
-  }, [idchuhang.idchuhang, props.id, props.isrender]);
+  }, [idchuhang.idchuhang, idKho.idKho, props.id, props.isrender]);
   // ? mapdodetail
   if (DODetail && DODetail.length !== 0) {
     mapDODetail = DODetail.map((item, index) => ({
@@ -477,37 +412,6 @@ const ModalDetailSystemExport = (props) => {
         columns={columns}
         bordered
         style={{ borderRadius: '20px' }}
-        // expandable={{
-        // rowExpandable: record => true,
-        // expandedRowRender: record => (
-        //   <table>
-        //     <thead className="ant-table-thead">
-        //       <tr>
-        //         <th className="ant-table-cell">KH Kiện</th>
-        //         <th className="ant-table-cell">KH SL</th>
-        //         <th className="ant-table-cell">ĐP Kiện</th>
-        //         <th className="ant-table-cell">ĐP SL</th>
-        //         <th className="ant-table-cell">PX Kiện</th>
-        //         <th className="ant-table-cell">PX SL</th>
-        //         <th className="ant-table-cell">HT Kiện</th>
-        //         <th className="ant-table-cell">HT SL</th>
-        //         <th className="ant-table-cell">Shipped Time</th>
-        //       </tr>
-        //     </thead>
-        //     <tr className="ant-table-row">
-        //       <td>{record.so_Kien_Xuat}</td>
-        //       <td>{record.so_Luong_Xuat}</td>
-        //       <td>{record.so_Kien_Cho_Pick}</td>
-        //       <td>{record.so_Luong_Cho_Pick}</td>
-        //       <td>{record.so_Kien_Pick_Xong}</td>
-        //       <td>{record.so_Luong_Pick_Xong}</td>
-        //       <td>{record.so_Kien_Ra_Khoi_Kho}</td>
-        //       <td>{record.so_Luong_Ra_Khoi_Kho}</td>
-        //       <td>{record.thoi_Diem_Ra_Khoi_Kho}</td>
-        //     </tr>
-        //   </table>
-        //   ),
-        //   }}
         dataSource={mapDODetail}
         scroll={{ x: 1600 }}
         pagination={{

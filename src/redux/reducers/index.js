@@ -21,6 +21,7 @@ import idFirstReducer from './IdFirstReducer';
 import ChuHangArrReducer from './arrChuHangReducer';
 import TokenReducer from './TokenReducer';
 import arrCostReducer from './arrCostReducer';
+import KhoArrReducer from './arrKhoReducer';
 
 export {
   themeReducer,
@@ -46,4 +47,5 @@ export {
   ChuHangArrReducer,
   TokenReducer,
   arrCostReducer,
+  KhoArrReducer,
 };

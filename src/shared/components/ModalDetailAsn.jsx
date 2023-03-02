@@ -13,6 +13,7 @@ import RenderStatus from './RenderStatus';
 const ModalDetailAsn = (props) => {
   // ? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   //? state component
   //! state asn detail
@@ -240,7 +241,7 @@ const ModalDetailAsn = (props) => {
             date_From: props.datefrom,
             date_To: props.dateto,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             loai_Hinh_Nhap_Kho_ID: null,
             idKeHoach: props.id,
             trang_Thai_Nhap_Kho_ID: [...props.arrTrangThai],
@@ -258,7 +259,7 @@ const ModalDetailAsn = (props) => {
       fetchASNDetailProduct();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang, page, PageSize, props.id]);
+  }, [idchuhang.idchuhang, idKho.idKho, page, PageSize, props.id]);
 
   //* RENDER COMPONENT
   return (

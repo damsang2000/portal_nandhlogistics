@@ -37,7 +37,8 @@ const TikiOrder = () => {
   const cookies = new Cookies();
 
   //
-  const idChuHang = useSelector((state) => state.idchuhang);
+  const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
 
   const fetchTikiOrder = async () => {
     const data = {
@@ -65,7 +66,7 @@ const TikiOrder = () => {
       }
     };
     fetchApiTiki();
-  }, [idChuHang.idchuhang]);
+  }, [idchuhang.idchuhang, idKho.idKho]);
 
   return (
     <>

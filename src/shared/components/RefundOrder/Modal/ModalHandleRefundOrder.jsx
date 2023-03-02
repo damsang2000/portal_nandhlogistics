@@ -13,6 +13,7 @@ import InputColumns from '../../InputColumns';
 const ModalHandleRefundOrder = (props) => {
   //? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   //? state component
   //! state refund do
@@ -189,7 +190,7 @@ const ModalHandleRefundOrder = (props) => {
             page: page,
             pageCount: PageSize,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             arrTrangThaiNhap: props.arrTrangThai,
             date_From: localStorage.getItem('datefromimportDashboard')
               ? formatDateTime(localStorage.getItem('datefromimportDashboard'))
@@ -219,6 +220,7 @@ const ModalHandleRefundOrder = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     props.isrender,

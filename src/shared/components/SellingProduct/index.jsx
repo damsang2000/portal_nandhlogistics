@@ -21,6 +21,7 @@ const index = (props) => {
   // ? state extension
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const { Title } = Typography;
 
   // ? state component
@@ -69,7 +70,7 @@ const index = (props) => {
             ? formatDateTime(localStorage.getItem('datetoimportDashboard'))
             : props.dateto,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           limit: 5,
           isASC: false,
         };
@@ -88,7 +89,7 @@ const index = (props) => {
     };
     fetchTopProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang, props.isrender]);
+  }, [idchuhang.idchuhang, idKho.idKho, props.isrender]);
 
   //* RENDER COMPONENT
   return (

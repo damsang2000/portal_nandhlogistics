@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, DatePicker, Select, Space, Table, Typography } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -65,12 +66,12 @@ const ManageASN = () => {
   const debouncedTicket = useDebounce(numberTicket, 500);
   const debouncedMarket = useDebounce(market, 500);
   // ? state extension
-  const { Title } = Typography;
   const { RangePicker } = DatePicker;
   const { Option } = Select;
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
 
   // ? funtion handle
   // ! function handle change value datetime
@@ -123,7 +124,7 @@ const ManageASN = () => {
             ? formatDateTime(localStorage.getItem('datetoimportmanage'))
             : DateTo,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           page: page,
           pageCount: PageSize,
           so_Phieu_Nhap_Kho: debouncedTicket || null,
@@ -132,7 +133,7 @@ const ManageASN = () => {
           trang_Thai_Nhap_Kho_ID: Status || null,
         };
         const response = await OrderASNApi.getAllManage(data);
-
+        console.log(response);
         setManageNhapKho(response.result);
         dispatch(Changeloading({ loading: false }));
         setTotal(response.total);
@@ -141,7 +142,13 @@ const ManageASN = () => {
       }
     };
     fetchListPhieuXuatPickXong();
-  }, [idchuhang, isSearchDate, debouncedTicket, debouncedMarket]);
+  }, [
+    idchuhang.idchuhang,
+    idKho.idKho,
+    isSearchDate,
+    debouncedTicket,
+    debouncedMarket,
+  ]);
 
   // ? Column Tables
   const columns = [
@@ -177,7 +184,8 @@ const ManageASN = () => {
       width: 120,
       render: (ngay_Nhap_Kho) => (
         <p style={{ textAlign: 'center', color: 'black' }}>
-          {formarDateTimeddmmyyy(ngay_Nhap_Kho.slice(0, 10))}
+          {formarDateTimeddmmyyy(ngay_Nhap_Kho.slice(0, 10))}{' '}
+          {ngay_Nhap_Kho.slice(11, 19)}
         </p>
       ),
       key: 'ngay_Nhap_Kho',
@@ -295,6 +303,23 @@ const ManageASN = () => {
       },
     },
     {
+      title: 'Người tạo',
+      dataIndex: 'created_By',
+      key: 'created_By',
+      width: 100,
+    },
+    {
+      title: 'Ngày tạo',
+      dataIndex: 'created',
+      key: 'created',
+      width: 120,
+      render: (created) => (
+        <p>
+          {formarDateTimeddmmyyy(created.slice(0, 10))} {created.slice(11, 19)}
+        </p>
+      ),
+    },
+    {
       title: 'Tên NCC',
       dataIndex: 'ma_NCC',
       key: 'ma_NCC',
@@ -404,7 +429,7 @@ const ManageASN = () => {
         columns={columns}
         bordered
         style={{ borderRadius: '20px' }}
-        scroll={{ x: 1400 }}
+        scroll={{ x: 1600 }}
         dataSource={manageNhapKho}
         pagination={{
           total: Total,

@@ -181,6 +181,7 @@ const ModalDo = (props) => {
   const [PageSize, setPageSize] = useState(10);
 
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const [DODetail, setDODetail] = useState([]);
 
   let mapDODetail = [];
@@ -215,7 +216,7 @@ const ModalDo = (props) => {
     //       date_From: props.datefrom,
     //       date_To: props.dateto,
     //       chu_Hang_ID: cookies.get('idchuhang'),
-    //       kho_ID: 2631604,
+    //       kho_ID: Number(localStorage.getItem('kho_id')),
     //       trang_Thai_Xuat_Kho_ID: [...props.arrTrangThai],
     //       xem_Type_ID: 3,
     //       sieu_Thi_ID: -5,
@@ -239,7 +240,7 @@ const ModalDo = (props) => {
             date_From: props.datefrom,
             date_To: props.dateto,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             trang_Thai_Xuat_Kho_ID: [...props.arrTrangThai],
             xem_Type_ID: 3,
             sieu_Thi_ID: -5,
@@ -261,7 +262,7 @@ const ModalDo = (props) => {
       setDODetail([]);
       setTotal(0);
     };
-  }, [idchuhang.idchuhang, props.id, props.isrender]);
+  }, [idchuhang.idchuhang, idKho.idKho, props.id, props.isrender]);
   // ? mapdodetail
   if (DODetail && DODetail.length !== 0) {
     mapDODetail = DODetail.map((item, index) => ({

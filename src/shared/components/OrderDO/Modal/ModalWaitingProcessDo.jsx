@@ -15,6 +15,7 @@ import { useDebounce } from '../../../../hook';
 const ModalWaitingProcessDo = (props) => {
   // ? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
 
   // ? state component
@@ -197,7 +198,7 @@ const ModalWaitingProcessDo = (props) => {
               ? formatDateTime(localStorage.getItem('datetoimportDashboard'))
               : props.dateto,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             arrTrangThaiXuatKho: [...props.arrtrangthai],
             so_Phieu_Xuat_Kho: debouncedTicket ? debouncedTicket : null,
             so_AWB: debouncedAWB ? debouncedAWB : null,
@@ -225,6 +226,7 @@ const ModalWaitingProcessDo = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     props.isrender,

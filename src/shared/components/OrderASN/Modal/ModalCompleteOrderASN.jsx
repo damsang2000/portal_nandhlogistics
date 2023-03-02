@@ -11,6 +11,7 @@ import ContenNoData from '../../ContenNoData';
 const ModalCompleteOrderASN = (props) => {
   //? state extension
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   //? state compoent
   //! state asn
@@ -161,7 +162,7 @@ const ModalCompleteOrderASN = (props) => {
             page: page,
             pageCount: PageSize,
             chu_Hang_ID: cookies.get('idchuhang'),
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
             arrTrangThaiNhap: [1, 2, 3],
             date_From: localStorage.getItem('datefromimportDashboard')
               ? formatDateTime(localStorage.getItem('datefromimportDashboard'))
@@ -188,7 +189,7 @@ const ModalCompleteOrderASN = (props) => {
       setImportProduct([]);
       setTotal(0);
     };
-  }, [idchuhang.idchuhang, page, PageSize, props.isrender]);
+  }, [idchuhang.idchuhang, idKho.idKho, page, PageSize, props.isrender]);
 
   //* REDER COMPONENT========================================================================
   return (

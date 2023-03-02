@@ -8,6 +8,7 @@ const ComboboxColumn = ({ fHandle, title, children, setpage }) => {
   const { Option } = Select;
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
 
   //? state component
   const [dmKhuVuc, setDMKhuVuc] = useState([]);
@@ -19,7 +20,7 @@ const ComboboxColumn = ({ fHandle, title, children, setpage }) => {
       const fetchCategoryProduct = async () => {
         try {
           const data = {
-            kho_ID: 2631604,
+            kho_ID: Number(localStorage.getItem('kho_id')),
           };
           const response = await KhoApi.getAllKhuVuc(data);
           const all = {
@@ -38,7 +39,7 @@ const ComboboxColumn = ({ fHandle, title, children, setpage }) => {
       setDMKhuVuc([]);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang]);
+  }, [idchuhang.idchuhang, idKho.idKho]);
 
   return (
     <>

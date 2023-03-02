@@ -33,46 +33,13 @@ const ExportToday = (props) => {
 
   const [ExportTable, setExportTable] = useState([]);
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
   const cookies = new Cookies();
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [datadetail, setDataDetail] = useState([]);
   let mapExportTable = [];
-
-  // eslint-disable-next-line react/prop-types
-  // useImperativeHandle(ref, () => ({
-  //   searchFilter() {
-  //     setpage(1);
-  //     dispatch(Changeloading({ loading: true }));
-  //     fetch('http://api-stg.nandhlogistics.vn:2530/api/XuatNhapKhau/GetListPhieuXuatTrongNgay',
-  //   {
-  //     headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //     },
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //         sortName: null,
-  //         isAsc: true,
-  //         page: page,
-  //         pageCount: PageSize,
-  //         // eslint-disable-next-line react/prop-types
-  //         date: props.ImportExportToday,
-  //         chu_Hang_ID: cookies.get('idchuhang'),
-  //         kho_ID: 2631604,
-  //         xem_Type_ID: 1,
-  //       }),
-  //     })
-  //     .then(res => res.json())
-  //     .then((data) => {
-  //       setTotal(data.total);
-  //       setExportTable(data.result);
-  //       dispatch(Changeloading({ loading: false }));
-  //     });
-  //   },
-  // }));
 
   // ? state filter
   const [numberTicket, setNumberTicket] = useState(null);
@@ -96,7 +63,7 @@ const ExportToday = (props) => {
             : // eslint-disable-next-line react/prop-types
               props.ImportExportToday,
           chu_Hang_ID: cookies.get('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
           xem_Type_ID: 1,
           so_Phieu_Xuat_Kho: debouncedTicket || null,
           ten_Sieu_Thi_Full: debouncedMarket || null,
@@ -117,6 +84,7 @@ const ExportToday = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     idchuhang.idchuhang,
+    idKho.idKho,
     page,
     PageSize,
     props.ImportExportToday,
@@ -296,42 +264,6 @@ const ExportToday = (props) => {
       dataIndex: 'ten_Sieu_Thi_Full',
       width: 200,
     },
-
-    // {
-    //     title: 'Tên Hàng',
-    //     dataIndex: 'Ten_San_Pham',
-    //     width: 250,
-    //     ellipsis: {
-    //         showTitle: false,
-    //       },
-    //       render: Ten_San_Pham => (
-    //         <Tooltip placement="topLeft" title={Ten_San_Pham}>
-    //           {Ten_San_Pham}
-    //         </Tooltip>
-    //       ),
-    // },
-    // {
-    //     title: 'Vị Trí',
-    //     dataIndex: 'Ma_So_Vi_Tri',
-    // },
-    // {
-    //     title: 'Người Tạo',
-    //     dataIndex: 'Created_By',
-    // },
-    // {
-    //   title: 'Trạng thái',
-    //   dataIndex: 'Trang_Thai_Nhap_Kho_Text',
-    //   key: 'trang_thai_quet_barcode',
-    //   // eslint-disable-next-line react/no-danger, consistent-return
-    //   render: (Trang_Thai_Nhap_Kho_Text) => {
-    //     if (Trang_Thai_Nhap_Kho_Text === 'Received') {
-    //         return <span className="label label-primary">{Trang_Thai_Nhap_Kho_Text}</span>;
-    //     }
-    //     if (Trang_Thai_Nhap_Kho_Text === 'Complete') {
-    //         return <span className="label label-success">{Trang_Thai_Nhap_Kho_Text}</span>;
-    //     }
-    //   },
-    // },
   ];
 
   if (ExportTable && ExportTable.length !== 0) {
@@ -361,25 +293,6 @@ const ExportToday = (props) => {
         columns={columns}
         bordered
         style={{ borderRadius: '20px' }}
-        // expandable={{
-        //   rowExpandable: (record) => true,
-        //   expandedRowRender: (record) => (
-        //     <table>
-        //       <thead className="ant-table-thead">
-        //         <tr>
-        //           <th className="ant-table-cell">Bắt đầu</th>
-        //           <th className="ant-table-cell">Kết thúc</th>
-        //           <th className="ant-table-cell">Nơi Xuất Đến</th>
-        //         </tr>
-        //       </thead>
-        //       <tr className="ant-table-row">
-        //         <td>{record.thoi_Diem_Auto_Pick_Hang}</td>
-        //         <td>{record.thoi_Diem_Ra_Khoi_Kho}</td>
-        //         <td>{record.ten_Sieu_Thi_Full}</td>
-        //       </tr>
-        //     </table>
-        //   ),
-        // }}
         scroll={{ x: 1700 }}
         dataSource={mapExportTable}
         pagination={{

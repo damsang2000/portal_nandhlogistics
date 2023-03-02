@@ -23,6 +23,8 @@ const index = (props) => {
   // ? state extension
   const cookies = new Cookies();
   const idchuhang = useSelector((state) => state.idchuhang);
+  const idKho = useSelector((state) => state.idKho);
+
   const { Title } = Typography;
 
   // ? state component
@@ -44,7 +46,7 @@ const index = (props) => {
             : props.dateto,
           chu_Hang_ID:
             cookies.get('idchuhang') || localStorage.getItem('idchuhang'),
-          kho_ID: 2631604,
+          kho_ID: Number(localStorage.getItem('kho_id')),
         };
         const response = await ThongKeApi.getAllThongKeXuat(data);
         if (response) {
@@ -75,7 +77,7 @@ const index = (props) => {
       setAccomplishedCount(0);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idchuhang.idchuhang, props.isrender]);
+  }, [idchuhang.idchuhang,idKho.idKho, props.isrender]);
   //* render component
   return (
     <Col
