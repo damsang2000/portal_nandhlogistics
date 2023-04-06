@@ -22,6 +22,7 @@ import { Changeloading } from '../../../redux/actions/loadingAction';
 import ContenNoData from '../../../shared/components/ContenNoData';
 import CustomLoading from '../../../shared/components/CustomLoading';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
+import ExportExcelExport from '../../../shared/components/ExportExcelExport';
 import InputColumns from '../../../shared/components/InputColumns';
 import ModalDetailDO2 from '../../../shared/components/ModalDetailDO2';
 import { formarDateTimeddmmyyy, formatDateTime } from '../../../shared/helpers';
@@ -225,6 +226,11 @@ const DODetailTable = () => {
       ),
     },
     {
+      title: 'Mã Hàng',
+      dataIndex: 'ma_San_Pham',
+      width: 100,
+    },
+    {
       title: (
         <InputColumns
           fHandle={setNameProduct}
@@ -425,12 +431,39 @@ const DODetailTable = () => {
               <Option value="3">Xuất nội bộ</Option>
               <Option value="4">Xuất kho VAS</Option>
             </Select>
-            <Checkbox
-              className="custom-checkbox"
-              onChange={() => setAll(!all)}
-            >
-              Tất cả chủ hàng
-            </Checkbox>
+          </Space>
+        </Space>
+        <Space direction="vertical">
+          <CustomTitleAndColor level={5}>Xuất file</CustomTitleAndColor>
+          <Space
+            direction="horizontal"
+            style={{ marginBottom: '10px' }}
+          >
+            <ExportExcelExport
+              page={page}
+              pageCount={PageSize}
+              date_From={
+                localStorage.getItem('datefromexport')
+                  ? formatDateTime(localStorage.getItem('datefromexport'))
+                  : DateFrom
+              }
+              date_To={
+                localStorage.getItem('datetoexport')
+                  ? formatDateTime(localStorage.getItem('datetoexport'))
+                  : DateTo
+              }
+              chu_Hang_ID={all ? null : cookies.get('idchuhang')}
+              kho_ID={Number(localStorage.getItem('kho_id'))}
+              trang_Thai_Xuat_Kho_ID={TrangThai ? [TrangThai] : null}
+              xem_Type_ID={1}
+              loai_Hinh_Xuat_Kho_ID={LoaiHinh}
+              sieu_Thi_ID={-5}
+              idKeHoach={null}
+              so_Phieu_Xuat_Kho={debouncedTicket || null}
+              ten_San_Pham={debouncedNameProduct || null}
+              so_AWB={debouncedAWB || null}
+              filename="bao_cao_chi_tiet_xuat_kho"
+            />
             <Button
               type="primary"
               danger

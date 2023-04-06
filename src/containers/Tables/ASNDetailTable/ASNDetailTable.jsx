@@ -10,7 +10,6 @@ import {
   Table,
   Tooltip,
   Typography,
-  Checkbox,
 } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
@@ -243,6 +242,11 @@ const ASNDetailTable = () => {
       width: 110,
     },
     {
+      title: 'Mã Hàng',
+      dataIndex: 'ma_San_Pham',
+      width: 100,
+    },
+    {
       title: (
         <InputColumns
           fHandle={setNameProduct}
@@ -407,13 +411,36 @@ const ASNDetailTable = () => {
               <Option value="1">Recieved</Option>
               <Option value="3">Complete</Option>
             </Select>
-            <Checkbox
-              className="custom-checkbox"
-              onChange={() => setAll(!all)}
-            >
-              Tất cả chủ hàng
-            </Checkbox>
-            <ExportExcelImport />
+          </Space>
+        </Space>
+        <Space direction="vertical">
+          <CustomTitleAndColor level={5}>Xuất file</CustomTitleAndColor>
+          <Space
+            direction="horizontal"
+            style={{ marginBottom: '10px' }}
+          >
+            <ExportExcelImport
+              page={page}
+              pageCount={PageSize}
+              dateFrom={
+                localStorage.getItem('datefromimportdetail')
+                  ? formatDateTime(localStorage.getItem('datefromimportdetail'))
+                  : DateFrom
+              }
+              dateTo={
+                localStorage.getItem('datetoimportdetail')
+                  ? formatDateTime(localStorage.getItem('datetoimportdetail'))
+                  : DateTo
+              }
+              chuHangID={all ? null : cookies.get('idchuhang')}
+              khoID={Number(localStorage.getItem('kho_id'))}
+              soPhieuNhapKho={debouncedTicket ? debouncedTicket : null}
+              tenSanPham={debouncedProduct ? debouncedProduct : null}
+              tenNCC={debouncedNCC ? debouncedNCC : null}
+              trangThaiNhapKho={Status ? [Status] : null}
+              filename={`Bao_cao_chi_tiet_nhap_kho`}
+              loaiHinhNhap={InputType}
+            />
             <Button
               type="primary"
               danger
@@ -430,39 +457,6 @@ const ASNDetailTable = () => {
         columns={columns}
         bordered
         style={{ borderRadius: '20px' }}
-        // expandable={{
-        //   rowExpandable: (record) => true,
-        //   expandedRowRender: (record) => (
-        //     <table>
-        //       <thead className="ant-table-thead">
-        //         <tr>
-        //           <th className="ant-table-cell">CT Kiện</th>
-        //           <th className="ant-table-cell">CT SL</th>
-        //           <th className="ant-table-cell">CT NW</th>
-        //           <th className="ant-table-cell">CT GW</th>
-        //           <th className="ant-table-cell">TT CBM</th>
-        //           <th className="ant-table-cell">TT Kiện</th>
-        //           <th className="ant-table-cell">TT SL</th>
-        //           <th className="ant-table-cell">TT NW</th>
-        //           <th className="ant-table-cell">TT GW</th>
-        //           <th className="ant-table-cell">TT CBM</th>
-        //         </tr>
-        //       </thead>
-        //       <tr className="ant-table-row">
-        //         <td>{record.so_Kien}</td>
-        //         <td>{record.so_Luong}</td>
-        //         <td>{record.tong_GW}</td>
-        //         <td>{record.tong_NW}</td>
-        //         <td>{record.tong_CBM}</td>
-        //         <td>{record.so_Kien_Receive}</td>
-        //         <td>{record.so_Luong_Receive}</td>
-        //         <td>{record.tong_GW_Receive}</td>
-        //         <td>{record.tong_NW_Receive}</td>
-        //         <td>{record.tong_CBM_Receive}</td>
-        //       </tr>
-        //     </table>
-        //   ),
-        // }}
         locale={{
           emptyText: <ContenNoData desc="Không có dữ liệu" />,
         }}

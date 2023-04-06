@@ -71,6 +71,7 @@ const TopbarProfile = () => {
     localStorage.removeItem('datetosln');
     localStorage.removeItem('datefromslx');
     localStorage.removeItem('datetoslx');
+    localStorage.removeItem('kho_id');
 
     // localStorage.clear();
     dispatch(changeDataArrChuHang({ arrChuHang: [] }));

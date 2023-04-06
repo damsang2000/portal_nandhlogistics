@@ -10,6 +10,7 @@ import ContenNoData from '../../../shared/components/ContenNoData';
 import CustomLoading from '../../../shared/components/CustomLoading';
 import CustomQuantity from '../../../shared/components/CustomQuantity';
 import { CustomTitleAndColor } from '../../../shared/components/CustomTitle';
+import ExportExcelInventory from '../../../shared/components/ExportExcelInventory';
 import InputColumns from '../../../shared/components/InputColumns';
 import ModalCurrentInventory from './Modal/ModalCurrentInventory';
 
@@ -314,15 +315,23 @@ const CurrentInventorySell = () => {
     <>
       <Space direction="vertical">
         <CustomTitleAndColor level={2}>Tồn hiện tại</CustomTitleAndColor>
-        <Checkbox
-          className="custom-checkbox"
-          onChange={() => setAll(!all)}
+        <Space
           style={{
             marginBottom: '10px',
           }}
+          direction="vertical"
         >
-          Tất cả chủ hàng
-        </Checkbox>
+          <CustomTitleAndColor level={4}>Xuất file</CustomTitleAndColor>
+          <ExportExcelInventory
+            page={page}
+            pageCount={PageSize}
+            chu_Hang_ID={all ? null : cookies.get('idchuhang')}
+            kho_ID={Number(localStorage.getItem('kho_id'))}
+            ma_San_Pham={debouncedItemCode || null}
+            ten_San_Pham={debouncedItemName || null}
+            filename="bao_cao_ton_kho"
+          />
+        </Space>
       </Space>
       <CustomLoading loading={loading.loading} />
       <Table
